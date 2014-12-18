@@ -18,8 +18,62 @@ extension UIColor {
     
     
 }
+
 extension UIImage {
+
+    /*
+    func getRotateImage(angle : CGFloat) -> UIImage{
+        var originalImage : UIImage = self
+        UIGraphicsBeginImageContext(self.size)
+        var context = UIGraphicsGetCurrentContext()        
+        CGContextRotateCTM(context, angle * CGFloat(M_PI) / 180)
+        drawInRect(CGRectMake(
+            self.size.height * cos(CGFloat(angle * CGFloat(M_PI) / 180)),
+            0,
+            self.size.width,
+            self.size.height)
+        )
+        let rotateImage = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        return rotateImage
+    }*/
     
+    
+    
+    /*
+    func getFilteredImage(filterName:String){
+        
+        var imageView = UIImageView(image:self)
+        
+        var filter = CIFilter(name:"CIPhotoEffectInstant")
+        var unfilteredImage = CIImage(CGImage:imageView.image?.CGImage)
+        filter.setValue(unfilteredImage, forKey: kCIInputImageKey)
+        var context = CIContext(options: nil)
+        var filteredImage: CIImage? = filter?.outputImage
+        var extent = filteredImage.extent()
+        var cgImage:CGImageRef = context.createCGImage(filteredImage, fromRect: extent)
+        var finalImage = UIImage(CGImage: cgImage)
+    }*/
+    
+    
+    func getMaskedImage(fileName : String) -> UIImage {
+println("convert!")
+        var originalImage = self
+        originalImage = originalImage.scaleToSize2(CGFloat(500))
+        //自身のUIImageのサイズを変更する
+        var maskImage : UIImage! = UIImage(named:fileName)
+        
+        let maskImageReference = maskImage?.CGImage
+        let mask = CGImageMaskCreate(CGImageGetWidth(maskImageReference),
+            CGImageGetHeight(maskImageReference),
+            CGImageGetBitsPerComponent(maskImageReference),
+            CGImageGetBitsPerPixel(maskImageReference),
+            CGImageGetBytesPerRow(maskImageReference),
+            CGImageGetDataProvider(maskImageReference),nil,false)
+        let maskedImageReference = CGImageCreateWithMask(originalImage.CGImage, mask)
+        let maskedImage = UIImage(CGImage: maskedImageReference)
+        return maskedImage!
+    }
     
     
     func getMaskImageFromTappedColor(_tColor:UIColor) -> UIImage? {
@@ -126,6 +180,26 @@ extension UIImage {
         return UIColor(red: r, green: g, blue: b, alpha: 1)
     }
     
+    func scaleToSize2(maxLenght : CGFloat) -> UIImage {
+        var w : CGFloat? = self.size.width
+        var h : CGFloat? = self.size.height
+        var scale:CGFloat
+        if(w>h){
+            scale = CGFloat(maxLenght/w!)
+        }else{
+            scale = CGFloat(maxLenght/h!)
+        }
+        var _convW : CGFloat? = CGFloat(w! * scale)
+        var _convH : CGFloat? = CGFloat(h! * scale)
+        var toSize = CGSizeMake(_convW!,_convH!)
+
+        UIGraphicsBeginImageContextWithOptions(toSize,false, 0.0)
+        drawInRect(CGRectMake(0, 0, toSize.width, toSize.height))
+        let resizedImage = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        return resizedImage
+    }
+    
     func scaleToSize(toSize: CGSize) -> UIImage {
         UIGraphicsBeginImageContextWithOptions(toSize,false, 0.0)
         drawInRect(CGRectMake(0, 0, toSize.width, toSize.height))
@@ -140,7 +214,6 @@ extension UIImage {
     }    
     
     func getPixelColor(pos: CGPoint) -> UIColor {
-        
         var pixelData = CGDataProviderCopyData(CGImageGetDataProvider(self.CGImage))
         var data: UnsafePointer<UInt8> = CFDataGetBytePtr(pixelData)
         
