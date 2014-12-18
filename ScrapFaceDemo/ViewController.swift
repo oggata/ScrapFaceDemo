@@ -55,7 +55,7 @@ class ViewController: UIViewController,UIImagePickerControllerDelegate, UINaviga
     }
     
     func imagePickerController(picker: UIImagePickerController!, didFinishPickingMediaWithInfo info: [NSObject : AnyObject]!)  {
-        
+
         //AssetLibrary frameworkによって提供されるURLを取得する
         let assetUrlOptional: NSURL? = info[UIImagePickerControllerReferenceURL] as? NSURL
         if assetUrlOptional == nil {
@@ -64,7 +64,7 @@ class ViewController: UIViewController,UIImagePickerControllerDelegate, UINaviga
             return
         }
         let assetUrl = assetUrlOptional!
-        
+
         //取得したURLを使用して、PHAssetを取得する
         let fetchResult = PHAsset.fetchAssetsWithALAssetURLs([ assetUrl ], options: nil)
         if fetchResult.firstObject == nil {
@@ -73,24 +73,33 @@ class ViewController: UIViewController,UIImagePickerControllerDelegate, UINaviga
             return
         }
         let asset = fetchResult.firstObject! as PHAsset
-        
         //Assetが編集処理をサポートしているかを問い合わせする
         if !asset.canPerformEditOperation(PHAssetEditOperation.Content) {
             NSLog("Error: asset can't be edited")
             //loading = false
             return
         }
-        
+
         dismissViewControllerAnimated(true, completion: nil)
         
         loadAsset(asset, completion: { [weak self] (imageFromAlbum:UIImage) -> Void in
+            
+            println("load image")
+            //var _image = UIImageView(image:imageFromAlbum)
 
-            var _image = UIImageView(image:imageFromAlbum)
-            var _uiImage = _image.image
-            //var _uiImage = UIImage(named:"syugou.jpg")
-
-            /*
+            //var _uiImage = UIImage(named:"IMG_0444.JPG")
+            
+            
+            
+            var _uiImage : UIImage? = imageFromAlbum
+            _uiImage = _uiImage?.scaleToSize(CGSize(width:500,height:500))
+            
             var _image = UIImageView(image:_uiImage)
+            
+            
+            
+            /*
+            //追加した写真を配置
             var w : CGFloat? = _uiImage?.size.width
             var h : CGFloat? = _uiImage?.size.height
             var scale:CGFloat
@@ -100,22 +109,32 @@ class ViewController: UIViewController,UIImagePickerControllerDelegate, UINaviga
                 scale = CGFloat(300/h!)
             }            
             _image.frame = CGRectMake(
-                120,
-                120,
+                10,
+                10,
                 CGFloat(w! * scale),
                 CGFloat(h! * scale)
             )
-            //self?.imageView.addSubview(_image)
+            self?.imageView.addSubview(_image)
             */
+            
+            
+            
             var ciImage  = CIImage(CGImage:_uiImage?.CGImage)
+            if(ciImage == nil){
+                println("no ci image")
+            }
+            
+println("x6.1")
             var ciDetector = CIDetector(ofType:CIDetectorTypeFace
-                ,context:nil
+                ,context:nil //CIContext(options: [kCIContextUseSoftwareRenderer:false])
                 ,options:[
-                    CIDetectorAccuracy:CIDetectorAccuracyHigh,
-                    CIDetectorSmile:true
+                    CIDetectorAccuracy:CIDetectorAccuracyLow,
+                    CIDetectorSmile:false
                 ]
             )
+println("x7")
             var features = ciDetector.featuresInImage(ciImage)
+            if(features == nil){println("no face in a picture")}
             if (features != nil) {
 
                 var _cnt = 0
@@ -162,6 +181,7 @@ class ViewController: UIViewController,UIImagePickerControllerDelegate, UINaviga
 
                     self?.imageView.addSubview(_fImage)
                 }
+                println("faceCnt->")
                 println(_cnt)
                 return
             }

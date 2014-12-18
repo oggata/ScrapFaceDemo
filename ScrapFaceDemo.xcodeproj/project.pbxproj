@@ -18,6 +18,9 @@
 		F3AD39131A416BF100F7BB89 /* face_mask.png in Resources */ = {isa = PBXBuildFile; fileRef = F3AD39121A416BF100F7BB89 /* face_mask.png */; };
 		F3AD39151A41706B00F7BB89 /* utyujin.png in Resources */ = {isa = PBXBuildFile; fileRef = F3AD39141A41706B00F7BB89 /* utyujin.png */; };
 		F3AD39171A41770800F7BB89 /* space.jpg in Resources */ = {isa = PBXBuildFile; fileRef = F3AD39161A41770800F7BB89 /* space.jpg */; };
+		F3AD39191A4180A200F7BB89 /* CoreImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F3AD39181A4180A200F7BB89 /* CoreImage.framework */; };
+		F3AD391B1A4180B500F7BB89 /* Photos.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F3AD391A1A4180B500F7BB89 /* Photos.framework */; };
+		F3AD391D1A41862000F7BB89 /* IMG_0444.JPG in Resources */ = {isa = PBXBuildFile; fileRef = F3AD391C1A41862000F7BB89 /* IMG_0444.JPG */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -46,6 +49,9 @@
 		F3AD39121A416BF100F7BB89 /* face_mask.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = face_mask.png; sourceTree = "<group>"; };
 		F3AD39141A41706B00F7BB89 /* utyujin.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = utyujin.png; sourceTree = "<group>"; };
 		F3AD39161A41770800F7BB89 /* space.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = space.jpg; sourceTree = "<group>"; };
+		F3AD39181A4180A200F7BB89 /* CoreImage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreImage.framework; path = System/Library/Frameworks/CoreImage.framework; sourceTree = SDKROOT; };
+		F3AD391A1A4180B500F7BB89 /* Photos.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Photos.framework; path = System/Library/Frameworks/Photos.framework; sourceTree = SDKROOT; };
+		F3AD391C1A41862000F7BB89 /* IMG_0444.JPG */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = IMG_0444.JPG; path = ../../../Downloads/IMG_0444.JPG; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -53,6 +59,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F3AD391B1A4180B500F7BB89 /* Photos.framework in Frameworks */,
+				F3AD39191A4180A200F7BB89 /* CoreImage.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -69,6 +77,8 @@
 		F3AD38DF1A41502F00F7BB89 = {
 			isa = PBXGroup;
 			children = (
+				F3AD391A1A4180B500F7BB89 /* Photos.framework */,
+				F3AD39181A4180A200F7BB89 /* CoreImage.framework */,
 				F3AD38EA1A41502F00F7BB89 /* ScrapFaceDemo */,
 				F3AD39001A41502F00F7BB89 /* ScrapFaceDemoTests */,
 				F3AD38E91A41502F00F7BB89 /* Products */,
@@ -94,6 +104,7 @@
 				F3AD38F11A41502F00F7BB89 /* Main.storyboard */,
 				F3AD38F41A41502F00F7BB89 /* Images.xcassets */,
 				F3AD39161A41770800F7BB89 /* space.jpg */,
+				F3AD391C1A41862000F7BB89 /* IMG_0444.JPG */,
 				F3AD38F61A41502F00F7BB89 /* LaunchScreen.xib */,
 				F3AD390E1A41551200F7BB89 /* syugou.jpg */,
 				F3AD38EB1A41502F00F7BB89 /* Supporting Files */,
@@ -176,6 +187,7 @@
 				TargetAttributes = {
 					F3AD38E71A41502F00F7BB89 = {
 						CreatedOnToolsVersion = 6.1.1;
+						DevelopmentTeam = S5Z9R3TYZT;
 					};
 					F3AD38FC1A41502F00F7BB89 = {
 						CreatedOnToolsVersion = 6.1.1;
@@ -210,6 +222,7 @@
 				F3AD38F31A41502F00F7BB89 /* Main.storyboard in Resources */,
 				F3AD390F1A41551200F7BB89 /* syugou.jpg in Resources */,
 				F3AD38F81A41502F00F7BB89 /* LaunchScreen.xib in Resources */,
+				F3AD391D1A41862000F7BB89 /* IMG_0444.JPG in Resources */,
 				F3AD38F51A41502F00F7BB89 /* Images.xcassets in Resources */,
 				F3AD39151A41706B00F7BB89 /* utyujin.png in Resources */,
 				F3AD39131A416BF100F7BB89 /* face_mask.png in Resources */,
@@ -356,9 +369,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = ScrapFaceDemo/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Debug;
 		};
@@ -366,9 +383,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = ScrapFaceDemo/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Release;
 		};
