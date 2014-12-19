@@ -12,10 +12,13 @@ import CoreImage
 
 class ViewController: UIViewController,UIImagePickerControllerDelegate, UINavigationControllerDelegate {
 
-    var filterNum = 1
+    var filterNum = 0
+    var filterName = "filter_001"
     var pictures:[UIImage] = []
     var setPictures:[UIImageView] = []
+    var setDecorations:[UIImageView] = []
     
+    @IBOutlet var titileLabel: UILabel!
     
     var _posData : Array<Dictionary<String,String>> = []
     
@@ -33,11 +36,7 @@ class ViewController: UIViewController,UIImagePickerControllerDelegate, UINaviga
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
-        
-        self._posData = []
-        self._posData = self.loadJSONFile("aa")
-
-        self.view.backgroundColor = UIColor(patternImage: UIImage(named: "back_007.png")!)
+        self.changeFilter()
     }
 
     override func didReceiveMemoryWarning() {
@@ -45,14 +44,10 @@ class ViewController: UIViewController,UIImagePickerControllerDelegate, UINaviga
         // Dispose of any resources that can be recreated.
     }
     
-    func setManufest(){
     
-    }
-    
-    
-    func loadJSONFile(tag:String) -> Array<Dictionary<String,String>>  {
-
-        var filePath:String? = NSBundle.mainBundle().pathForResource("filter_001",ofType:"json") as String?
+    func loadJSONFile(filterName:String) -> Array<Dictionary<String,String>>  {
+        
+        var filePath:String? = NSBundle.mainBundle().pathForResource(filterName,ofType:"json") as String?
         var err: NSError
         var fileHandle : NSFileHandle = NSFileHandle(forReadingAtPath: filePath!)!
         var acceptData : NSData = fileHandle.readDataToEndOfFile()
@@ -63,12 +58,15 @@ class ViewController: UIViewController,UIImagePickerControllerDelegate, UINaviga
         for (i, v) in parseJson {
             var _data = [
                 "id":v["id"].asString!,
+                "title":v["title"].asString!,
+                "background":v["background"].asString!,
                 "mask":v["mask"].asString!,
                 "filter":v["filter"].asString!,
                 "x":v["x"].asString!,
                 "y":v["y"].asString!,
                 "width":v["width"].asString!,
                 "rotate":v["rotate"].asString!,
+                "square":v["square"].asString!,
             ]
             rtnData.append(_data)
         }
@@ -83,60 +81,61 @@ class ViewController: UIViewController,UIImagePickerControllerDelegate, UINaviga
     }
     
     func changeFilter(){
-        //配置された写真をリムーブ
-        self.removeAllPicturesFromCanvas()
         
-        //背景のフィルターをセットする
+        //フィルター番号をインクリメント
         self.filterNum++
         if(self.filterNum>5){
             self.filterNum = 1
         }
+
+        //TODO:定義ファイルにする
+        //フィルタ番号からフィルタ名を索引する
         if(self.filterNum == 1){
-            self.view.backgroundColor = UIColor(patternImage: UIImage(named: "back_006.png")!)
+            self.filterName = "filter_001"
         }
         if(self.filterNum == 2){
-            self.view.backgroundColor = UIColor(patternImage: UIImage(named: "back_002.png")!)
+            self.filterName = "filter_002"
         }
         if(self.filterNum == 3){
-            self.view.backgroundColor = UIColor(patternImage: UIImage(named: "back_003.png")!)
+            self.filterName = "filter_003"
         }
         if(self.filterNum == 4){
-            self.view.backgroundColor = UIColor(patternImage: UIImage(named: "back_004.png")!)
+            self.filterName = "filter_004"
         }
         if(self.filterNum == 5){
-            self.view.backgroundColor = UIColor(patternImage: UIImage(named: "back_005.png")!)
+            self.filterName = "filter_005"
         }
-        
+        self._posData = self.loadJSONFile(self.filterName)
+        var _title = self._posData[0]["title"]
+        var _background = self._posData[0]["background"]
+        println(_title)
+        self.titileLabel.text = _title
+        self.view.backgroundColor = UIColor(patternImage: UIImage(named:_background!)!)
+                
+        //配置された写真をリムーブ
+        self.removeAllPicturesFromCanvas()
+                
         //写真をフィルタルールで配置しなおす
-        var _filterName = "hoge"
-        self.arrangePicturesToCanvasByFilteringRule(_filterName)
-    }
-
-
-    //マスクされた画像を作成
-    func getMaskedImage(originalImage:UIImage!,maskImage:UIImage!) -> UIImage {        
-        let maskImageReference:CGImage? = maskImage?.CGImage
-        let mask = CGImageMaskCreate(CGImageGetWidth(maskImageReference),
-            CGImageGetHeight(maskImageReference),
-            CGImageGetBitsPerComponent(maskImageReference),
-            CGImageGetBitsPerPixel(maskImageReference),
-            CGImageGetBytesPerRow(maskImageReference),
-            CGImageGetDataProvider(maskImageReference),nil,false)
-        let maskedImageReference = CGImageCreateWithMask(originalImage?.CGImage, mask)
-        let maskedImage = UIImage(CGImage: maskedImageReference)
-        return maskedImage!
+        self.arrangePicturesToCanvasByFilteringRule(self.filterName)
     }
     
     // MARK: - Canvasから写真を削除
 
     func removeAllPicturesFromCanvas(){
-        println("remove")
+        println("removeAll")
         //配列からremoveする。
         for var i = 0; i < self.setPictures.count; i++ {
             self.setPictures[i].removeFromSuperview()
             //self.setPictures.removeAtIndex(i)
         }
-        self.setPictures = []    
+        
+        for var i = 0; i < self.setDecorations.count; i++ {
+            self.setDecorations[i].removeFromSuperview()
+            //self.setPictures.removeAtIndex(i)
+        }
+        
+        self.setPictures = [] 
+        self.setDecorations = []
     }
     
     // MARK: - 既に配置されている写真に極力被らない座標を返す
@@ -176,33 +175,48 @@ class ViewController: UIViewController,UIImagePickerControllerDelegate, UINaviga
         }
     }
     
-    
+    // MARK: - 写真1枚の配置に対してフィルタルールを適用する
     
     func setPictureByFilteringRule2(_picture:UIImage,_filterName : String){
         var _image = UIImageView(image:_picture)
 
-        var _i = arc4random_uniform(9)
+        var _i = self.setPictures.count
+        if(_i>9){
+            _i=0
+        }
+        
+        //rand
+        //var _i = arc4random_uniform(9)
         var _data = self._posData[Int(_i)]
+        
 
         //var _data = self._posData[4]
         var _posX : CGFloat = CGFloat(_data["x"]!.toInt()!) 
         var _posY : CGFloat = CGFloat(_data["y"]!.toInt()!)
         var _maxLength : CGFloat = CGFloat(_data["width"]!.toInt()!)
+        //var _rotate : CGFloat = CGFloat(_data["rotate"]!.toInt()!)
         var _rotate : CGFloat = CGFloat(_data["rotate"]!.toInt()!)
 
         /*
+        //rand
         var _pos = self.getRandPosition()
         var _posX = _pos.x            
         var _posY = _pos.y
         var _maxLength = CGFloat(100 + arc4random_uniform(300))
         */
         var _picture = _picture
-        if(_data["mask"] != "none"){
-            _picture = _picture.getMaskedImage(_data["mask"]!)
+                
+        if(_data["square"] == "true"){
+            _picture = _picture.getClippedImage(CGRectMake(0,0,500,500))
         }
         if(_data["filter"] != "none"){
             _picture  = self.getSepiaFilterImage(_picture,filterName:_data["filter"]!)
         }
+        if(_data["mask"] != "none"){
+            _picture = _picture.getMaskedImage(_data["mask"]!)
+        }
+
+        //_picture = _picture.getPhoto()
         var _scaledImage : UIImage = _picture.scaleToSize2(_maxLength)
         var _scaledView = UIImageView(image:_scaledImage)
         _scaledView.frame = CGRectMake(
@@ -217,35 +231,133 @@ class ViewController: UIViewController,UIImagePickerControllerDelegate, UINaviga
         _scaledView.transform = CGAffineTransformMakeRotation(_rad);
         self.imageView.addSubview(_scaledView)
         self.setPictures.append(_scaledView)
+        
+        
+        
+        
+        self.pasteTape(_scaledView)
+    }
+
+    /*
+    func pasteFrame(){
+    
+    
+    
+    }*/
+    
+    
+    func pasteTape(targetPhoto:UIImageView){
+        
+        //ランダムで5種類の中からテープを選ぶ
+        var _tapeImage = UIImage(named:"tape_001.png")
+        var rand = Int(arc4random_uniform(5) + 1)
+        if(rand == 1){
+            _tapeImage = UIImage(named:"tape_001.png")
+        }
+        if(rand == 2){
+            _tapeImage = UIImage(named:"tape_002.png")
+        }
+        if(rand == 3){
+            _tapeImage = UIImage(named:"tape_003.png")
+        }
+        if(rand == 4){
+            _tapeImage = UIImage(named:"tape_004.png")
+        }
+        if(rand == 5){
+            _tapeImage = UIImage(named:"tape_005.png")
+        }
+        
+        //テープのイメージを描く
+        _tapeImage = _tapeImage?.scaleToSize2(CGFloat(100))
+        var _tape = UIImageView(image:_tapeImage)
+        var w : CGFloat? = _tape.image?.size.width
+        var h : CGFloat? = _tape.image?.size.height
+        
+        //配置する場所を決める
+        var rand2 = Int(arc4random_uniform(2) + 1)
+        //左上
+        var _x = targetPhoto.frame.origin.x
+        var _y = targetPhoto.frame.origin.y
+        if(rand2 == 2){
+            //右上
+            _x = targetPhoto.frame.origin.x + targetPhoto.frame.size.width - w!
+            _y = targetPhoto.frame.origin.y - h!/3
+        }
+        if(rand2 == 3){
+            //中央
+            _x = targetPhoto.frame.origin.x + targetPhoto.frame.size.width/2
+            _y = targetPhoto.frame.origin.y - h!/3
+        }
+
+        _tape.frame = CGRectMake(
+            _x,
+            _y,
+            w!,
+            h!
+        )
+        _tape = _tape.getRandRotation()
+        self.imageView.addSubview(_tape)
+        self.setDecorations.append(_tape)
     }
     
-    // MARK: - 写真1枚の配置に対してフィルタルールを適用する
-    /*
-    func setPictureByFilteringRule(_picture:UIImage,_filterName : String){
-        var _image = UIImageView(image:_picture)
-        var _pos = self.getRandPosition()
-        var _posX = _pos.x            
-        var _posY = _pos.y
-        //var _rotate = CGFloat(30 * -1 + arc4random_uniform(60))
-        var _maxLength = CGFloat(100 + arc4random_uniform(300))
-        //var _picture = _picture.getMaskedImage()
-        //var _picture  = self.getSepiaFilterImage(_picture,filterName:"CIPhotoEffectTransfer")
-        var _scaledImage : UIImage = _picture.scaleToSize2(_maxLength)
-        var _scaledView = UIImageView(image:_scaledImage)
-        _scaledView.frame = CGRectMake(
-            _posX,
-            _posY,
-            _scaledImage.size.width,
-            _scaledImage.size.height
+    
+    func pasteFukidashi(targetPhoto:UIImageView){
+        //ランダムで5種類の中から吹き出しを選ぶ
+        var _tapeImage = UIImage(named:"fukidashi_001.png")
+        var rand = Int(arc4random_uniform(5) + 1)
+        if(rand == 1){
+            _tapeImage = UIImage(named:"fukidashi_001.png")
+        }
+        if(rand == 2){
+            _tapeImage = UIImage(named:"fukidashi_002.png")
+        }
+        if(rand == 3){
+            _tapeImage = UIImage(named:"fukidashi_003.png")
+        }
+        if(rand == 4){
+            _tapeImage = UIImage(named:"fukidashi_004.png")
+        }
+        if(rand == 5){
+            _tapeImage = UIImage(named:"fukidashi_005.png")
+        }
+        
+        //テープのイメージを描く
+        _tapeImage = _tapeImage?.scaleToSize2(CGFloat(100))
+        var _tape = UIImageView(image:_tapeImage)
+        var w : CGFloat? = _tape.image?.size.width
+        var h : CGFloat? = _tape.image?.size.height
+        
+        //配置する場所を決める
+        var rand2 = Int(arc4random_uniform(2) + 1)
+        //左上
+        var _x = targetPhoto.frame.origin.x
+        var _y = targetPhoto.frame.origin.y + targetPhoto.frame.size.height / 2
+        if(rand2 == 2){
+            //右上
+            _x = targetPhoto.frame.origin.x + targetPhoto.frame.size.width - w!
+            _y = targetPhoto.frame.origin.y + targetPhoto.frame.size.height / 2
+        }
+        if(rand2 == 3){
+            //中央
+            _x = targetPhoto.frame.origin.x + targetPhoto.frame.size.width/2
+            _y = targetPhoto.frame.origin.y + targetPhoto.frame.size.height / 2
+        }
+        
+        _tape.frame = CGRectMake(
+            _x,
+            _y,
+            w!,
+            h!
         )
-        //回転はUIImageViewの方がやりやすいのでここで行う
-        var _rot = CGFloat(arc4random_uniform(30))
-        var _rad = CGFloat(CGFloat(_rot) * CGFloat(M_PI / 180)) // 45°回転させたい場合
-        _scaledView.transform = CGAffineTransformMakeRotation(_rad);
-        self.imageView.addSubview(_scaledView)
-        self.setPictures.append(_scaledView)
-    }*/
+        _tape = _tape.getRandRotation()
+        self.imageView.addSubview(_tape)
+        self.setDecorations.append(_tape)
+    }
 
+    
+
+    
+    
     //画像にフィルターをかける
     func getSepiaFilterImage(baseImage:UIImage,filterName:String) -> UIImage{
         var filter = CIFilter(name:filterName)
@@ -259,6 +371,29 @@ class ViewController: UIViewController,UIImagePickerControllerDelegate, UINaviga
         return finalImage!
     }
     
+    //func getTrimedImage() -> UIImage{
+        //var clipRect = CGRectMake(0,0,500,500)
+        //var cliped : CGImageRef = CGImageCreateWithImageInRect(srcImage.CGImage, clipRect);
+        
+        /*
+        var trimingSize = CGSizeMake(500,500)
+        var trimingRect = CGRectMake(
+            0,
+            0,
+            500,
+            500
+        )
+        //var trimedImage : CIImage = ciImage.imageByCroppingToRect(trimingRect)
+        //var uiImage : UIImage = 
+        var ciImage  = CIImage(CGImage:_uiImage?.CGImage)
+        var context = CIContext(options: nil)
+        var filteredImage: CIImage = ciImage.imageByCroppingToRect(trimingRect)
+        var extent = filteredImage.extent()
+        var cgImage:CGImageRef = context.createCGImage(filteredImage, fromRect: extent)
+        var finalImage : UIImage? = UIImage(CGImage: cgImage)
+        */
+    //}    
+
     
     // MARK: - 写真の制御
     

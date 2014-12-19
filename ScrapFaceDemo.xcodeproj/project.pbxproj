@@ -7,6 +7,19 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		F33EF7DA1A43CFC300877678 /* pin_blue.png in Resources */ = {isa = PBXBuildFile; fileRef = F33EF7D91A43CFC300877678 /* pin_blue.png */; };
+		F33EF7E21A43D33100877678 /* tape_002.png in Resources */ = {isa = PBXBuildFile; fileRef = F33EF7DE1A43D33100877678 /* tape_002.png */; };
+		F33EF7E31A43D33100877678 /* tape_003.png in Resources */ = {isa = PBXBuildFile; fileRef = F33EF7DF1A43D33100877678 /* tape_003.png */; };
+		F33EF7E41A43D33100877678 /* tape_001.png in Resources */ = {isa = PBXBuildFile; fileRef = F33EF7E01A43D33100877678 /* tape_001.png */; };
+		F33EF7E51A43D33100877678 /* tape_004.png in Resources */ = {isa = PBXBuildFile; fileRef = F33EF7E11A43D33100877678 /* tape_004.png */; };
+		F33EF7E71A43D34100877678 /* tape_005.png in Resources */ = {isa = PBXBuildFile; fileRef = F33EF7E61A43D34100877678 /* tape_005.png */; };
+		F33EF7ED1A43E1BB00877678 /* fukidashi_001.png in Resources */ = {isa = PBXBuildFile; fileRef = F33EF7E81A43E1BB00877678 /* fukidashi_001.png */; };
+		F33EF7EE1A43E1BB00877678 /* fukidashi_002.png in Resources */ = {isa = PBXBuildFile; fileRef = F33EF7E91A43E1BB00877678 /* fukidashi_002.png */; };
+		F33EF7EF1A43E1BB00877678 /* fukidashi_005.png in Resources */ = {isa = PBXBuildFile; fileRef = F33EF7EA1A43E1BB00877678 /* fukidashi_005.png */; };
+		F33EF7F01A43E1BB00877678 /* fukidashi_003.png in Resources */ = {isa = PBXBuildFile; fileRef = F33EF7EB1A43E1BB00877678 /* fukidashi_003.png */; };
+		F33EF7F11A43E1BB00877678 /* fukidashi_004.png in Resources */ = {isa = PBXBuildFile; fileRef = F33EF7EC1A43E1BB00877678 /* fukidashi_004.png */; };
+		F33EF7F41A43E53C00877678 /* frame_001.png in Resources */ = {isa = PBXBuildFile; fileRef = F33EF7F31A43E53C00877678 /* frame_001.png */; };
+		F33EF7F61A43E57E00877678 /* frame_002.png in Resources */ = {isa = PBXBuildFile; fileRef = F33EF7F51A43E57E00877678 /* frame_002.png */; };
 		F3835A8C1A42868D000456A0 /* kagee.png in Resources */ = {isa = PBXBuildFile; fileRef = F3835A8B1A42868D000456A0 /* kagee.png */; };
 		F3835A8F1A429B79000456A0 /* json.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3835A8E1A429B79000456A0 /* json.swift */; };
 		F3835A911A429C42000456A0 /* filter_001.json in Resources */ = {isa = PBXBuildFile; fileRef = F3835A901A429C42000456A0 /* filter_001.json */; };
@@ -19,6 +32,7 @@
 		F3835A9F1A42CAF1000456A0 /* star.png in Resources */ = {isa = PBXBuildFile; fileRef = F3835A9E1A42CAF1000456A0 /* star.png */; };
 		F3835AA11A42CF05000456A0 /* back_006.png in Resources */ = {isa = PBXBuildFile; fileRef = F3835AA01A42CF05000456A0 /* back_006.png */; };
 		F3835AA31A42D0C0000456A0 /* back_007.png in Resources */ = {isa = PBXBuildFile; fileRef = F3835AA21A42D0C0000456A0 /* back_007.png */; };
+		F3835AA51A42D545000456A0 /* back_008.png in Resources */ = {isa = PBXBuildFile; fileRef = F3835AA41A42D545000456A0 /* back_008.png */; };
 		F3AD38EE1A41502F00F7BB89 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3AD38ED1A41502F00F7BB89 /* AppDelegate.swift */; };
 		F3AD38F01A41502F00F7BB89 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3AD38EF1A41502F00F7BB89 /* ViewController.swift */; };
 		F3AD38F31A41502F00F7BB89 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F3AD38F11A41502F00F7BB89 /* Main.storyboard */; };
@@ -51,6 +65,19 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		F33EF7D91A43CFC300877678 /* pin_blue.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pin_blue.png; sourceTree = "<group>"; };
+		F33EF7DE1A43D33100877678 /* tape_002.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tape_002.png; sourceTree = "<group>"; };
+		F33EF7DF1A43D33100877678 /* tape_003.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tape_003.png; sourceTree = "<group>"; };
+		F33EF7E01A43D33100877678 /* tape_001.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tape_001.png; sourceTree = "<group>"; };
+		F33EF7E11A43D33100877678 /* tape_004.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tape_004.png; sourceTree = "<group>"; };
+		F33EF7E61A43D34100877678 /* tape_005.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tape_005.png; sourceTree = "<group>"; };
+		F33EF7E81A43E1BB00877678 /* fukidashi_001.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = fukidashi_001.png; sourceTree = "<group>"; };
+		F33EF7E91A43E1BB00877678 /* fukidashi_002.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = fukidashi_002.png; sourceTree = "<group>"; };
+		F33EF7EA1A43E1BB00877678 /* fukidashi_005.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = fukidashi_005.png; sourceTree = "<group>"; };
+		F33EF7EB1A43E1BB00877678 /* fukidashi_003.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = fukidashi_003.png; sourceTree = "<group>"; };
+		F33EF7EC1A43E1BB00877678 /* fukidashi_004.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = fukidashi_004.png; sourceTree = "<group>"; };
+		F33EF7F31A43E53C00877678 /* frame_001.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = frame_001.png; sourceTree = "<group>"; };
+		F33EF7F51A43E57E00877678 /* frame_002.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = frame_002.png; sourceTree = "<group>"; };
 		F3835A8B1A42868D000456A0 /* kagee.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = kagee.png; sourceTree = "<group>"; };
 		F3835A8E1A429B79000456A0 /* json.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = json.swift; sourceTree = "<group>"; };
 		F3835A901A429C42000456A0 /* filter_001.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = filter_001.json; sourceTree = "<group>"; };
@@ -63,6 +90,7 @@
 		F3835A9E1A42CAF1000456A0 /* star.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = star.png; sourceTree = "<group>"; };
 		F3835AA01A42CF05000456A0 /* back_006.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = back_006.png; sourceTree = "<group>"; };
 		F3835AA21A42D0C0000456A0 /* back_007.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = back_007.png; sourceTree = "<group>"; };
+		F3835AA41A42D545000456A0 /* back_008.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = back_008.png; sourceTree = "<group>"; };
 		F3AD38E81A41502F00F7BB89 /* ScrapFaceDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ScrapFaceDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F3AD38EC1A41502F00F7BB89 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F3AD38ED1A41502F00F7BB89 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -108,25 +136,71 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		F33EF7DB1A43D25A00877678 /* back */ = {
+			isa = PBXGroup;
+			children = (
+				F3AD39241A426C1000F7BB89 /* back_005.png */,
+				F3AD39161A41770800F7BB89 /* space.jpg */,
+				F3AD39261A426C1300F7BB89 /* back_004.png */,
+				F3835AA41A42D545000456A0 /* back_008.png */,
+				F3AD39221A426B6200F7BB89 /* back_003.png */,
+				F3AD391E1A426A7E00F7BB89 /* back_001.png */,
+				F3835AA21A42D0C0000456A0 /* back_007.png */,
+				F3AD39201A426B2F00F7BB89 /* back_002.png */,
+				F3835AA01A42CF05000456A0 /* back_006.png */,
+			);
+			name = back;
+			sourceTree = "<group>";
+		};
+		F33EF7DC1A43D26200877678 /* mask */ = {
+			isa = PBXGroup;
+			children = (
+				F3835A8B1A42868D000456A0 /* kagee.png */,
+				F3835A9A1A42CAE7000456A0 /* circle.png */,
+				F3835A9E1A42CAF1000456A0 /* star.png */,
+				F3AD39121A416BF100F7BB89 /* face_mask.png */,
+				F3835A9C1A42CAEB000456A0 /* fukidashi.png */,
+			);
+			name = mask;
+			sourceTree = "<group>";
+		};
+		F33EF7DD1A43D26700877678 /* ornament */ = {
+			isa = PBXGroup;
+			children = (
+				F33EF7E81A43E1BB00877678 /* fukidashi_001.png */,
+				F33EF7E91A43E1BB00877678 /* fukidashi_002.png */,
+				F33EF7EA1A43E1BB00877678 /* fukidashi_005.png */,
+				F33EF7EB1A43E1BB00877678 /* fukidashi_003.png */,
+				F33EF7EC1A43E1BB00877678 /* fukidashi_004.png */,
+				F33EF7E61A43D34100877678 /* tape_005.png */,
+				F33EF7DE1A43D33100877678 /* tape_002.png */,
+				F33EF7DF1A43D33100877678 /* tape_003.png */,
+				F33EF7E01A43D33100877678 /* tape_001.png */,
+				F33EF7E11A43D33100877678 /* tape_004.png */,
+				F33EF7D91A43CFC300877678 /* pin_blue.png */,
+			);
+			name = ornament;
+			sourceTree = "<group>";
+		};
+		F33EF7F21A43E51F00877678 /* frame */ = {
+			isa = PBXGroup;
+			children = (
+				F33EF7F51A43E57E00877678 /* frame_002.png */,
+				F33EF7F31A43E53C00877678 /* frame_001.png */,
+			);
+			name = frame;
+			sourceTree = "<group>";
+		};
 		F3835A8D1A42869B000456A0 /* images */ = {
 			isa = PBXGroup;
 			children = (
+				F33EF7F21A43E51F00877678 /* frame */,
+				F33EF7DD1A43D26700877678 /* ornament */,
+				F33EF7DC1A43D26200877678 /* mask */,
+				F33EF7DB1A43D25A00877678 /* back */,
 				F3AD39141A41706B00F7BB89 /* utyujin.png */,
-				F3835AA01A42CF05000456A0 /* back_006.png */,
-				F3835A8B1A42868D000456A0 /* kagee.png */,
-				F3AD39161A41770800F7BB89 /* space.jpg */,
-				F3AD39241A426C1000F7BB89 /* back_005.png */,
-				F3835A9C1A42CAEB000456A0 /* fukidashi.png */,
-				F3835A9A1A42CAE7000456A0 /* circle.png */,
-				F3835AA21A42D0C0000456A0 /* back_007.png */,
-				F3835A9E1A42CAF1000456A0 /* star.png */,
 				F3AD391C1A41862000F7BB89 /* IMG_0444.JPG */,
 				F3AD390E1A41551200F7BB89 /* syugou.jpg */,
-				F3AD391E1A426A7E00F7BB89 /* back_001.png */,
-				F3AD39261A426C1300F7BB89 /* back_004.png */,
-				F3AD39201A426B2F00F7BB89 /* back_002.png */,
-				F3AD39221A426B6200F7BB89 /* back_003.png */,
-				F3AD39121A416BF100F7BB89 /* face_mask.png */,
 			);
 			name = images;
 			sourceTree = "<group>";
@@ -280,24 +354,38 @@
 			files = (
 				F3AD38F31A41502F00F7BB89 /* Main.storyboard in Resources */,
 				F3AD39231A426B6200F7BB89 /* back_003.png in Resources */,
+				F3835AA51A42D545000456A0 /* back_008.png in Resources */,
 				F3835A911A429C42000456A0 /* filter_001.json in Resources */,
+				F33EF7EE1A43E1BB00877678 /* fukidashi_002.png in Resources */,
 				F3835A991A429C95000456A0 /* filter_005.json in Resources */,
+				F33EF7E71A43D34100877678 /* tape_005.png in Resources */,
 				F3835AA11A42CF05000456A0 /* back_006.png in Resources */,
+				F33EF7F61A43E57E00877678 /* frame_002.png in Resources */,
+				F33EF7E21A43D33100877678 /* tape_002.png in Resources */,
 				F3AD39271A426C1300F7BB89 /* back_004.png in Resources */,
 				F3AD391F1A426A7E00F7BB89 /* back_001.png in Resources */,
 				F3835A951A429C7A000456A0 /* filter_003.json in Resources */,
 				F3835A9B1A42CAE7000456A0 /* circle.png in Resources */,
+				F33EF7ED1A43E1BB00877678 /* fukidashi_001.png in Resources */,
+				F33EF7EF1A43E1BB00877678 /* fukidashi_005.png in Resources */,
+				F33EF7E31A43D33100877678 /* tape_003.png in Resources */,
+				F33EF7E51A43D33100877678 /* tape_004.png in Resources */,
 				F3AD390F1A41551200F7BB89 /* syugou.jpg in Resources */,
+				F33EF7DA1A43CFC300877678 /* pin_blue.png in Resources */,
+				F33EF7F11A43E1BB00877678 /* fukidashi_004.png in Resources */,
 				F3AD39251A426C1000F7BB89 /* back_005.png in Resources */,
 				F3835A971A429C85000456A0 /* filter_004.json in Resources */,
 				F3AD38F81A41502F00F7BB89 /* LaunchScreen.xib in Resources */,
 				F3AD391D1A41862000F7BB89 /* IMG_0444.JPG in Resources */,
 				F3AD38F51A41502F00F7BB89 /* Images.xcassets in Resources */,
+				F33EF7F01A43E1BB00877678 /* fukidashi_003.png in Resources */,
 				F3835A9F1A42CAF1000456A0 /* star.png in Resources */,
 				F3AD39151A41706B00F7BB89 /* utyujin.png in Resources */,
 				F3AD39211A426B2F00F7BB89 /* back_002.png in Resources */,
 				F3AD39131A416BF100F7BB89 /* face_mask.png in Resources */,
 				F3AD39171A41770800F7BB89 /* space.jpg in Resources */,
+				F33EF7F41A43E53C00877678 /* frame_001.png in Resources */,
+				F33EF7E41A43D33100877678 /* tape_001.png in Resources */,
 				F3835A9D1A42CAEB000456A0 /* fukidashi.png in Resources */,
 				F3835A931A429C6C000456A0 /* filter_002.json in Resources */,
 				F3835AA31A42D0C0000456A0 /* back_007.png in Resources */,

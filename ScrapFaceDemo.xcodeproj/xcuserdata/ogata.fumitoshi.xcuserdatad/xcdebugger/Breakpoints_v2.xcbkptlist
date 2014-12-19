@@ -10,11 +10,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ScrapFaceDemo/ViewController.swift"
-            timestampString = "440586214.195161"
+            timestampString = "440658069.305427"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "73"
-            endingLineNumber = "73"
+            startingLineNumber = "71"
+            endingLineNumber = "71"
             landmarkName = "loadJSONFile(_:)"
             landmarkType = "5">
          </BreakpointContent>
