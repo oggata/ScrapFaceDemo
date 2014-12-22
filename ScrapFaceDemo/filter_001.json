@@ -7,9 +7,13 @@
         "filter": "none",
         "x": "0",
         "y": "0",
-        "width": "100",
+        "width": "110",
         "rotate" : "0",
-        "square" : "true"
+        "square" : "true",
+        "frame"  : "INSTANT",
+        "decoration1" : "PINS",
+        "decoration2" : "none",
+        "decoration3" : "none"
     },
     "02": {
         "id" : "2",
@@ -18,10 +22,14 @@
         "mask": "none",
         "filter": "none",
         "x": "120",
-        "y": "0",
-        "width": "100",
-        "rotate" : "0",
-        "square" : "true"
+        "y": "15",
+        "width": "110",
+        "rotate" : "5",
+        "square" : "true",
+        "frame"  : "INSTANT",
+        "decoration1" : "PINS",
+        "decoration2" : "none",
+        "decoration3" : "none"
     },
     "03": {
         "id" : "3",
@@ -30,10 +38,14 @@
         "mask": "none",
         "filter": "none",
         "x": "240",
-        "y": "0",
-        "width": "100",
+        "y": "5",
+        "width": "130",
         "rotate" : "0",
-        "square" : "true"
+        "square" : "true",
+        "frame"  : "INSTANT",
+        "decoration1" : "PINS",
+        "decoration2" : "none",
+        "decoration3" : "none"
     },
     "04": {
         "id" : "4",
@@ -42,10 +54,14 @@
         "mask": "none",
         "filter": "none",
         "x": "0",
-        "y": "150",
-        "width": "100",
-        "rotate" : "0",
-        "square" : "true"
+        "y": "145",
+        "width": "110",
+        "rotate" : "-5",
+        "square" : "true",
+        "frame"  : "INSTANT",
+        "decoration1" : "PINS",
+        "decoration2" : "none",
+        "decoration3" : "none"
     },
     "05": {
         "id" : "5",
@@ -55,9 +71,13 @@
         "filter": "none",
         "x": "120",
         "y": "150",
-        "width": "100",
+        "width": "120",
         "rotate" : "0",
-        "square" : "true"
+        "square" : "true",
+        "frame"  : "INSTANT",
+        "decoration1" : "PINS",
+        "decoration2" : "none",
+        "decoration3" : "none"
     },
     "06": {
         "id" : "6",
@@ -66,10 +86,14 @@
         "mask": "none",
         "filter": "none",
         "x": "240",
-        "y": "150",
-        "width": "100",
-        "rotate" : "0",
-        "square" : "true"
+        "y": "140",
+        "width": "110",
+        "rotate" : "5",
+        "square" : "true",
+        "frame"  : "INSTANT",
+        "decoration1" : "PINS",
+        "decoration2" : "none",
+        "decoration3" : "none"
     },
     "07": {
         "id" : "7",
@@ -79,9 +103,13 @@
         "filter": "none",
         "x": "0",
         "y": "300",
-        "width": "100",
-        "rotate" : "0",
-        "square" : "true"
+        "width": "130",
+        "rotate" : "-10",
+        "square" : "true",
+        "frame"  : "INSTANT",
+        "decoration1" : "PINS",
+        "decoration2" : "none",
+        "decoration3" : "none"
     },
     "08": {
         "id" : "8",
@@ -90,10 +118,14 @@
         "mask": "none",
         "filter": "none",
         "x": "120",
-        "y": "300",
-        "width": "100",
+        "y": "280",
+        "width": "110",
         "rotate" : "0",
-        "square" : "true"
+        "square" : "true",
+        "frame"  : "INSTANT",
+        "decoration1" : "PINS",
+        "decoration2" : "none",
+        "decoration3" : "none"
     },
     "09": {
         "id" : "9",
@@ -102,9 +134,13 @@
         "mask": "none",
         "filter": "none",
         "x": "240",
-        "y": "300",
-        "width": "100",
-        "rotate" : "0",
-        "square" : "true"
+        "y": "290",
+        "width": "130",
+        "rotate" : "5",
+        "square" : "true",
+        "frame"  : "INSTANT",
+        "decoration1" : "PINS",
+        "decoration2" : "none",
+        "decoration3" : "none"
     },
 }

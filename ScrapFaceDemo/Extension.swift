@@ -51,8 +51,6 @@ extension UIImage {
         return rotateImage
     }*/
     
-    
-    
     /*
     func getFilteredImage(filterName:String){
         
@@ -74,7 +72,73 @@ extension UIImage {
         let clippedImage = UIImage(CGImage: cliped)
         return clippedImage!    
     }
+    
+    func getPhoto2() -> UIImage{        
+        //self.getClippedImage(CGRectMake(0,0,500,500))
+        var toSize = CGSizeMake(self.size.width,self.size.height)
+        UIGraphicsBeginImageContextWithOptions(toSize,false, 0.0)
+        
+        //写真を配置する
+        drawInRect(CGRectMake(0,0, self.size.width, self.size.width))
 
+        let context = UIGraphicsGetCurrentContext()
+        var frameImage = UIImage(named:"frame_003.png")
+        //指定されたサイズに目一杯に広げる
+        var clipRect = CGRectMake(0,0,self.size.width,self.size.height)
+        var drawCtxt = UIGraphicsGetCurrentContext()
+        CGContextDrawImage(drawCtxt,clipRect,frameImage?.CGImage)
+        
+        var drawedImage = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        return drawedImage
+    }
+    
+    func getPostageStamp() -> UIImage{
+        //self.getClippedImage(CGRectMake(0,0,500,500))
+        var toSize = CGSizeMake(self.size.width,self.size.height)
+        UIGraphicsBeginImageContextWithOptions(toSize,false, 0.0)
+        
+        let context = UIGraphicsGetCurrentContext()
+        var frameImage = UIImage(named:"frame_001.png")
+        //指定されたサイズに目一杯に広げる
+        var clipRect = CGRectMake(0,0,self.size.width,self.size.height)
+        var drawCtxt = UIGraphicsGetCurrentContext()
+        CGContextDrawImage(drawCtxt,clipRect,frameImage?.CGImage)
+        
+        //写真を配置する
+        drawInRect(CGRectMake(25, 25, self.size.width - 50, self.size.width - 50))
+        
+        var drawedImage = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        return drawedImage
+    }
+    
+    func getPolaroidPhoto() -> UIImage{
+        //self.getClippedImage(CGRectMake(0,0,500,500))
+        var toSize = CGSizeMake(self.size.width,self.size.height)
+        UIGraphicsBeginImageContextWithOptions(toSize,false, 0.0)
+        
+        let context = UIGraphicsGetCurrentContext()
+        var frameImage = UIImage(named:"frame_002.png")
+        //指定されたサイズに目一杯に広げる
+        var clipRect = CGRectMake(0,0,self.size.width,self.size.height)
+        var drawCtxt = UIGraphicsGetCurrentContext()
+        CGContextDrawImage(drawCtxt,clipRect,frameImage?.CGImage)
+        
+        //写真を配置する
+        //サイズの1/10
+        var _posX = self.size.width/10
+        var _posY = self.size.height/10
+        
+        drawInRect(CGRectMake(_posX, _posY, self.size.width - _posX*2, self.size.height - _posY*2))
+        
+        var drawedImage = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        return drawedImage
+    }
+    
+    
+    
     
     func getPhoto() -> UIImage{
 
@@ -107,12 +171,11 @@ extension UIImage {
         CGContextSetFillColorWithColor(context,UIColor.whiteColor().CGColor);
         //CGContextFillRect(context,rect);
         
-        
+
         drawInRect(CGRectMake(50, 50, 300, 300))
         let resizedImage = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
         return resizedImage
-    
     }
     
     /*
