@@ -20,6 +20,10 @@
 		F33EF7F11A43E1BB00877678 /* fukidashi_004.png in Resources */ = {isa = PBXBuildFile; fileRef = F33EF7EC1A43E1BB00877678 /* fukidashi_004.png */; };
 		F33EF7F41A43E53C00877678 /* frame_001.png in Resources */ = {isa = PBXBuildFile; fileRef = F33EF7F31A43E53C00877678 /* frame_001.png */; };
 		F33EF7F61A43E57E00877678 /* frame_002.png in Resources */ = {isa = PBXBuildFile; fileRef = F33EF7F51A43E57E00877678 /* frame_002.png */; };
+		F34B409E1A4A9865003BF6C3 /* rotate_button.png in Resources */ = {isa = PBXBuildFile; fileRef = F34B409D1A4A9865003BF6C3 /* rotate_button.png */; };
+		F34B40A01A4A986B003BF6C3 /* scale_button.png in Resources */ = {isa = PBXBuildFile; fileRef = F34B409F1A4A986B003BF6C3 /* scale_button.png */; };
+		F34B40A21A4AB146003BF6C3 /* up_button.png in Resources */ = {isa = PBXBuildFile; fileRef = F34B40A11A4AB146003BF6C3 /* up_button.png */; };
+		F34B40A41A4AB14A003BF6C3 /* down_button.png in Resources */ = {isa = PBXBuildFile; fileRef = F34B40A31A4AB14A003BF6C3 /* down_button.png */; };
 		F366867C1A43F0D800898C4D /* frame_003.png in Resources */ = {isa = PBXBuildFile; fileRef = F366867B1A43F0D800898C4D /* frame_003.png */; };
 		F366867E1A43FB7400898C4D /* mask_left.png in Resources */ = {isa = PBXBuildFile; fileRef = F366867D1A43FB7400898C4D /* mask_left.png */; };
 		F36686801A43FB8300898C4D /* mask_right.png in Resources */ = {isa = PBXBuildFile; fileRef = F366867F1A43FB8300898C4D /* mask_right.png */; };
@@ -94,6 +98,10 @@
 		F33EF7EC1A43E1BB00877678 /* fukidashi_004.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = fukidashi_004.png; sourceTree = "<group>"; };
 		F33EF7F31A43E53C00877678 /* frame_001.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = frame_001.png; sourceTree = "<group>"; };
 		F33EF7F51A43E57E00877678 /* frame_002.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = frame_002.png; sourceTree = "<group>"; };
+		F34B409D1A4A9865003BF6C3 /* rotate_button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = rotate_button.png; sourceTree = "<group>"; };
+		F34B409F1A4A986B003BF6C3 /* scale_button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = scale_button.png; sourceTree = "<group>"; };
+		F34B40A11A4AB146003BF6C3 /* up_button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = up_button.png; sourceTree = "<group>"; };
+		F34B40A31A4AB14A003BF6C3 /* down_button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = down_button.png; sourceTree = "<group>"; };
 		F366867B1A43F0D800898C4D /* frame_003.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = frame_003.png; sourceTree = "<group>"; };
 		F366867D1A43FB7400898C4D /* mask_left.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = mask_left.png; sourceTree = "<group>"; };
 		F366867F1A43FB8300898C4D /* mask_right.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = mask_right.png; sourceTree = "<group>"; };
@@ -240,9 +248,21 @@
 			name = frame;
 			sourceTree = "<group>";
 		};
+		F34B409C1A4A985F003BF6C3 /* ui */ = {
+			isa = PBXGroup;
+			children = (
+				F34B40A11A4AB146003BF6C3 /* up_button.png */,
+				F34B40A31A4AB14A003BF6C3 /* down_button.png */,
+				F34B409F1A4A986B003BF6C3 /* scale_button.png */,
+				F34B409D1A4A9865003BF6C3 /* rotate_button.png */,
+			);
+			name = ui;
+			sourceTree = "<group>";
+		};
 		F3835A8D1A42869B000456A0 /* images */ = {
 			isa = PBXGroup;
 			children = (
+				F34B409C1A4A985F003BF6C3 /* ui */,
 				F33EF7F21A43E51F00877678 /* frame */,
 				F33EF7DD1A43D26700877678 /* ornament */,
 				F33EF7DC1A43D26200877678 /* mask */,
@@ -403,8 +423,10 @@
 				F36686841A44079200898C4D /* leave_005.png in Resources */,
 				F3AD38F31A41502F00F7BB89 /* Main.storyboard in Resources */,
 				F3AD39231A426B6200F7BB89 /* back_003.png in Resources */,
+				F34B409E1A4A9865003BF6C3 /* rotate_button.png in Resources */,
 				F366869B1A4430D900898C4D /* pin_green.png in Resources */,
 				F3835AA51A42D545000456A0 /* back_008.png in Resources */,
+				F34B40A01A4A986B003BF6C3 /* scale_button.png in Resources */,
 				F3835A911A429C42000456A0 /* filter_001.json in Resources */,
 				F33EF7EE1A43E1BB00877678 /* fukidashi_002.png in Resources */,
 				F3835A991A429C95000456A0 /* filter_005.json in Resources */,
@@ -420,6 +442,7 @@
 				F33EF7ED1A43E1BB00877678 /* fukidashi_001.png in Resources */,
 				F36686911A44265500898C4D /* flower_002.png in Resources */,
 				F33EF7EF1A43E1BB00877678 /* fukidashi_005.png in Resources */,
+				F34B40A21A4AB146003BF6C3 /* up_button.png in Resources */,
 				F33EF7E31A43D33100877678 /* tape_003.png in Resources */,
 				F33EF7E51A43D33100877678 /* tape_004.png in Resources */,
 				F3AD390F1A41551200F7BB89 /* syugou.jpg in Resources */,
@@ -448,6 +471,7 @@
 				F366868A1A4407A000898C4D /* leave_001.png in Resources */,
 				F3AD39171A41770800F7BB89 /* space.jpg in Resources */,
 				F36686801A43FB8300898C4D /* mask_right.png in Resources */,
+				F34B40A41A4AB14A003BF6C3 /* down_button.png in Resources */,
 				F33EF7F41A43E53C00877678 /* frame_001.png in Resources */,
 				F33EF7E41A43D33100877678 /* tape_001.png in Resources */,
 				F3835A9D1A42CAEB000456A0 /* fukidashi.png in Resources */,

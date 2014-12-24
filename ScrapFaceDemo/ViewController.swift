@@ -23,6 +23,18 @@ class ViewController: UIViewController,UIImagePickerControllerDelegate, UINaviga
     
     var canvasImageView : UIImageView!
     
+    var targetView : UIImageView!
+    var targetButton01 : UIImageView!
+    var isTargetButton01On : Bool = false
+    var targetButton02 : UIImageView!
+    var isTargetButton02On : Bool = false
+    var targetButton03 : UIImageView!
+    var isTargetButton03On : Bool = false
+    var targetButton04 : UIImageView!
+    var isTargetButton04On : Bool = false
+    
+    
+    
     @IBOutlet var titileLabel: UILabel!
     
     var _posData : Array<Dictionary<String,String>> = []
@@ -46,9 +58,88 @@ class ViewController: UIViewController,UIImagePickerControllerDelegate, UINaviga
         //self.canvasImageView.backgroundColor = UIColor(patternImage: UIImage(named:"back_005.png")!)
         //self.view.addSubview(self.canvasImageView)
         
+        
+ 
+        var _targetImage : UIImage
+        var _frame:CGRect = CGRect(x: 0,y:0,width:100,height:100)
+        // ビットマップ形式のグラフィックスコンテキストの生成
+        UIGraphicsBeginImageContextWithOptions(_frame.size,false,0.0);
+        var _context : CGContextRef = UIGraphicsGetCurrentContext();
+        var _rect : CGRect = CGRectMake(0,0,100,100);
+        CGContextSetRGBStrokeColor(_context,1,0,0,1);
+        CGContextStrokeRectWithWidth(_context,_rect,5);
+        // 現在のグラフィックスコンテキストの画像を取得する
+        _targetImage = UIGraphicsGetImageFromCurrentImageContext();
+        // 現在のグラフィックスコンテキストへの編集を終了
+        UIGraphicsEndImageContext();
+        self.targetView = UIImageView(image:_targetImage)
+        self.imageView.addSubview(self.targetView)
+        self.targetView?.hidden = true
+
+        //ボタン1
+        self.targetButton01 = UIImageView(frame:CGRectMake(0,0,26,26))
+        self.targetButton01.image = UIImage(named:"scale_button.png")
+        self.targetView?.addSubview(self.targetButton01)
+        
+        self.targetButton02 = UIImageView(frame:CGRectMake(0,0,26,26))
+        self.targetButton02.image = UIImage(named:"rotate_button.png")
+        self.targetView?.addSubview(self.targetButton02)
+        
+        self.targetButton03 = UIImageView(frame:CGRectMake(0,0,26,26))
+        self.targetButton03.image = UIImage(named:"up_button.png")
+        self.targetView?.addSubview(self.targetButton03)
+     
+        self.targetButton04 = UIImageView(frame:CGRectMake(0,0,26,26))
+        self.targetButton04.image = UIImage(named:"down_button.png")
+        self.targetView?.addSubview(self.targetButton04)
+        
+        self.moveTargetUI()
+        
         self.changeFilter()
     }
 
+    func moveTargetUI(){
+    
+        if(self.editingImage != nil){
+            var _x  = self.editingImage?.frame.origin.x
+            var _y  = self.editingImage?.frame.origin.y
+            var _width = self.editingImage?.frame.size.width
+            var _height = self.editingImage?.frame.size.height
+            self.targetView.frame = CGRectMake(
+                _x!,
+                _y!,
+                _width!,
+                _height!
+            )
+        }
+
+        self.targetButton01.frame = CGRectMake(
+            CGFloat(self.targetView.getUpperLeft().x-13),
+            CGFloat(self.targetView.getUpperLeft().y-13),
+            26,
+            26
+        )
+        self.targetButton02.frame = CGRectMake(
+            CGFloat(self.targetView.getUpperRight().x-13),
+            CGFloat(self.targetView.getUpperRight().y-13),
+            26,
+            26
+        )
+        self.targetButton03.frame = CGRectMake(
+            CGFloat(self.targetView.getLowerLeft().x-13),
+            CGFloat(self.targetView.getLowerLeft().y-13),
+            26,
+            26
+        )
+        self.targetButton04.frame = CGRectMake(
+            CGFloat(self.targetView.getLowerRight().x-13),
+            CGFloat(self.targetView.getLowerRight().y-13),
+            26,
+            26
+        )
+    }
+    
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -56,9 +147,55 @@ class ViewController: UIViewController,UIImagePickerControllerDelegate, UINaviga
     
     override func touchesBegan(touches: NSSet, withEvent event: UIEvent) {
         let t = touches.anyObject() as UITouch
-        let point = t.locationInView(self.view)        
+        let point = t.locationInView(self.view)
+        
+        //self.editingImage = nil
         var _imageViewPointX = point.x - self.imageView.frame.origin.x
         var _imageViewPointY = point.y - self.imageView.frame.origin.y
+        
+        //ボタンとの当り判定
+        if(self.targetView.frame.origin.x + self.targetButton01.frame.origin.x <= _imageViewPointX
+            && _imageViewPointX <= self.targetView.frame.origin.x + self.targetButton01.frame.origin.x + self.targetButton01.frame.size.width 
+            && 
+            self.targetView.frame.origin.y + self.targetButton01.frame.origin.y <= _imageViewPointY 
+            && _imageViewPointY <= self.targetView.frame.origin.y + self.targetButton01.frame.origin.y + self.targetButton01.frame.size.height
+            ){
+                self.isTargetButton01On = true
+        }
+        
+        if(self.targetView.frame.origin.x + self.targetButton02.frame.origin.x <= _imageViewPointX
+            && _imageViewPointX <= self.targetView.frame.origin.x + self.targetButton02.frame.origin.x + self.targetButton02.frame.size.width 
+            && 
+            self.targetView.frame.origin.y + self.targetButton02.frame.origin.y <= _imageViewPointY 
+            && _imageViewPointY <= self.targetView.frame.origin.y + self.targetButton02.frame.origin.y + self.targetButton02.frame.size.height
+            ){
+                self.isTargetButton02On = true
+        }
+        
+        if(self.targetView.frame.origin.x + self.targetButton03.frame.origin.x <= _imageViewPointX
+            && _imageViewPointX <= self.targetView.frame.origin.x + self.targetButton03.frame.origin.x + self.targetButton03.frame.size.width 
+            && 
+            self.targetView.frame.origin.y + self.targetButton03.frame.origin.y <= _imageViewPointY 
+            && _imageViewPointY <= self.targetView.frame.origin.y + self.targetButton03.frame.origin.y + self.targetButton03.frame.size.height
+            ){
+                self.isTargetButton03On = true
+        }
+        
+        if(self.targetView.frame.origin.x + self.targetButton04.frame.origin.x <= _imageViewPointX
+            && _imageViewPointX <= self.targetView.frame.origin.x + self.targetButton04.frame.origin.x + self.targetButton04.frame.size.width 
+            && 
+            self.targetView.frame.origin.y + self.targetButton04.frame.origin.y <= _imageViewPointY 
+            && _imageViewPointY <= self.targetView.frame.origin.y + self.targetButton04.frame.origin.y + self.targetButton04.frame.size.height
+            ){
+                self.isTargetButton04On = true
+        }
+        
+        //ボタンと接触していない場合は編集中画像をリセットする
+        if(!self.isTargetButton01On && !self.isTargetButton02On && !self.isTargetButton03On && !self.isTargetButton04On){
+            self.editingImage = nil
+        }
+
+        //編集中画像の当たり判定
         for var i = 0; i < self.setDecorations.count; i++ {            
             if(self.setDecorations[i].frame.origin.x <= _imageViewPointX
                 && _imageViewPointX <= self.setDecorations[i].frame.origin.x + self.setDecorations[i].frame.size.width 
@@ -79,38 +216,148 @@ class ViewController: UIViewController,UIImagePickerControllerDelegate, UINaviga
                     self.editingImage = setPictures[i]
             }
         }
-    }
-    
-    override func touchesMoved(touches: NSSet, withEvent event: UIEvent)  {
-        let t = touches.anyObject() as UITouch
-        let point = t.locationInView(self.view)
-        var _imageViewPointX = point.x - self.imageView.frame.origin.x
-        var _imageViewPointY = point.y - self.imageView.frame.origin.y
-        
+
+        //ターゲッタを指定
         if(self.editingImage != nil){
-                     
-            //アフィン変換されている場合は移動する前に一度初期化して、異動後に戻す必要がある
-            var tmpTransform = self.editingImage!.transform
-            if(!CGAffineTransformIsIdentity(self.editingImage!.transform)){
-                self.editingImage!.transform = CGAffineTransformIdentity
-            }
-            self.editingImage?.frame = CGRectMake(
-                _imageViewPointX - self.editingImage!.frame.size.width / 2,
-                _imageViewPointY - self.editingImage!.frame.size.height / 2,
-                self.editingImage!.frame.size.width,
-                self.editingImage!.frame.size.height
+            self.imageView.bringSubviewToFront(self.targetView)
+            self.targetView?.hidden = false
+            var _x  = self.editingImage?.frame.origin.x
+            var _y  = self.editingImage?.frame.origin.y
+            var _width = self.editingImage?.frame.size.width
+            var _height = self.editingImage?.frame.size.height
+            self.targetView.frame = CGRectMake(
+                _x!,
+                _y!,
+                _width!,
+                _height!
             )
-            //戻す
-            self.editingImage!.transform = tmpTransform
+            self.moveTargetUI()
+            
+            
+            
+            if(self.isTargetButton03On){
+                self.imageView.bringSubviewToFront(self.editingImage!)
+            }
+            if(self.isTargetButton04On){
+                self.imageView.sendSubviewToBack(self.editingImage!)
+            }
+            
+        }else{
+            self.targetView?.hidden = true
         }
     }
     
+    var _imagePoint : CGPoint = CGPointMake(0,0)
+    var _tmpImagePoint : CGPoint = CGPointMake(0,0)
+    var _rt : Int = 0
+    override func touchesMoved(touches: NSSet, withEvent event: UIEvent)  {
+        let t = touches.anyObject() as UITouch
+        let point = t.locationInView(self.view)
+        self._imagePoint = CGPointMake(point.x - self.imageView.frame.origin.x,point.y - self.imageView.frame.origin.y)
+        
+        //移動
+        if(self.editingImage != nil){
+            if(!self.isTargetButton01On && !self.isTargetButton02On && !self.isTargetButton03On && !self.isTargetButton04On){
+                //アフィン変換されている場合は移動する前に一度初期化して、異動後に戻す必要がある
+                var tmpTransform = self.editingImage!.transform
+                if(!CGAffineTransformIsIdentity(self.editingImage!.transform)){
+                    self.editingImage!.transform = CGAffineTransformIdentity
+                }
+                self.editingImage?.frame = CGRectMake(
+                    self._imagePoint.x - self.editingImage!.frame.size.width / 2,
+                    self._imagePoint.y - self.editingImage!.frame.size.height / 2,
+                    self.editingImage!.frame.size.width,
+                    self.editingImage!.frame.size.height
+                )
+                //戻す
+                self.editingImage!.transform = tmpTransform
+            
+                //ターゲッタを指定
+                if(self.editingImage != nil){
+                    self.imageView.bringSubviewToFront(self.targetView)
+                    self.targetView?.hidden = false
+                    var _x  = self.editingImage?.frame.origin.x
+                    var _y  = self.editingImage?.frame.origin.y
+                    var _width = self.editingImage?.frame.size.width
+                    var _height = self.editingImage?.frame.size.height
+                    self.targetView.frame = CGRectMake(
+                        _x!,
+                        _y!,
+                        _width!,
+                        _height!
+                    )
+                    self.moveTargetUI()
+                }else{
+                    self.targetView?.hidden = true
+                }
+            //スケール&ロテート
+            }else{
+                if(self.isTargetButton01On){
+                    //アフィン変換されている場合は移動する前に一度初期化して、異動後に戻す必要がある
+                    var tmpTransform = self.editingImage!.transform
+                    if(!CGAffineTransformIsIdentity(self.editingImage!.transform)){
+                        self.editingImage!.transform = CGAffineTransformIdentity
+                    }
+                    
+                    if(self._tmpImagePoint.x > self._imagePoint.x){
+                        self.editingImage?.frame = CGRectMake(
+                            self.editingImage!.frame.origin.x - 1,
+                            self.editingImage!.frame.origin.y - 1,
+                            self.editingImage!.frame.size.width + 2,
+                            self.editingImage!.frame.size.height + 2
+                        )
+                    }else{
+                        self.editingImage?.frame = CGRectMake(
+                            self.editingImage!.frame.origin.x + 1,
+                            self.editingImage!.frame.origin.y + 1,
+                            self.editingImage!.frame.size.width - 2,
+                            self.editingImage!.frame.size.height - 2
+                        )
+                    }
+                    
+                    //戻す
+                    self.editingImage!.transform = tmpTransform
+                }
+                
+                //回転
+                if(self.isTargetButton02On){
+                    if(self._tmpImagePoint.x > self._imagePoint.x){
+                        self._rt-=1
+                    }else{
+                        self._rt+=1
+                    }
+                    var _rad : CGFloat = CGFloat(CGFloat(self._rt) * CGFloat(M_PI / 180)) // 45°回転させたい場合
+                    self.editingImage!.transform = CGAffineTransformMakeRotation(_rad)
+                }
+                
+                //上下ソート
+                if(self.isTargetButton03On){
+                    self.imageView.bringSubviewToFront(self.editingImage!)
+                    println("33333333333")
+                }
+                
+                if(self.isTargetButton04On){
+                    self.imageView.sendSubviewToBack(self.editingImage!)
+                    println("4444444444")
+                }                
+            }
+            self.moveTargetUI()
+        }        
+        self._tmpImagePoint = self._imagePoint
+        
+        self.moveTargetUI()
+    }
+    
     override func touchesEnded(touches: NSSet, withEvent event: UIEvent) {
-        self.editingImage = nil
+        //self.editingImage = nil
         //println("touchEnd")
         //if(self.editingUIImageView != nil){
             
         //}
+        self.isTargetButton01On = false
+        self.isTargetButton02On = false
+        self.isTargetButton03On = false
+        self.isTargetButton04On = false
     }
     
     func loadJSONFile(filterName:String) -> Array<Dictionary<String,String>>  {
@@ -198,13 +445,16 @@ class ViewController: UIViewController,UIImagePickerControllerDelegate, UINaviga
         var _background = self._posData[0]["background"]
         println(_title)
         self.titileLabel.text = _title
-        self.view.backgroundColor = UIColor(patternImage: UIImage(named:_background!)!)
+        self.imageView.backgroundColor = UIColor(patternImage: UIImage(named:_background!)!)
                 
         //配置された写真をリムーブ
         self.removeAllPicturesFromCanvas()
                 
         //写真をフィルタルールで配置しなおす
         self.arrangePicturesToCanvasByFilteringRule(self.filterName)
+        
+        //ターゲットUIを消す
+        self.targetView?.hidden = true
     }
     
     // MARK: - Canvasから写真を削除

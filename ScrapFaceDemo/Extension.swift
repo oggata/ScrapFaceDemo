@@ -39,7 +39,22 @@ extension UIImageView {
         }
         return self
     }
+    
+    func getUpperLeft()-> CGPoint{
+        return CGPointMake(0,0)
+    }
+    
+    func getUpperRight()-> CGPoint{
+        return CGPointMake(self.frame.size.width,0)
+    }
 
+    func getLowerLeft()-> CGPoint{
+        return CGPointMake(0,self.frame.size.height)
+    }
+ 
+    func getLowerRight()-> CGPoint{
+        return CGPointMake(self.frame.size.width,self.frame.size.height)
+    }
 }
 
 extension UIImage {
