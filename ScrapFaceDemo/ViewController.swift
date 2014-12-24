@@ -210,76 +210,79 @@ class ViewController: UIViewController,UIImagePickerControllerDelegate, UINaviga
         var _image = UIImageView(image:_picture)
 
         var _i = self.setPictures.count
-        if(_i>9){
-            _i=0
-        }
-        
-        //rand
-        //var _i = arc4random_uniform(9)
-        var _data = self._posData[Int(_i)]
-        
+        if(_i>=9){
+            var loginAlert:UIAlertController = UIAlertController(title: "写真は9枚迄です.", 
+                message: "-製品版はもっと追加できますよ、乞うご期待!!-.", preferredStyle: UIAlertControllerStyle.Alert)
+            loginAlert.addAction(UIAlertAction(title: "ok", style: .Default, handler: nil))
+            self.presentViewController(loginAlert, animated: true, completion: nil)               
+        }else{
 
-        //var _data = self._posData[4]
-        var _posX : CGFloat = CGFloat(_data["x"]!.toInt()!) 
-        var _posY : CGFloat = CGFloat(_data["y"]!.toInt()!)
-        var _maxLength : CGFloat = CGFloat(_data["width"]!.toInt()!)
-        //var _rotate : CGFloat = CGFloat(_data["rotate"]!.toInt()!)
-        var _rotate : CGFloat = CGFloat(_data["rotate"]!.toInt()!)
+            //rand
+            //var _i = arc4random_uniform(9)
+            var _data = self._posData[Int(_i)]
+        
+            //var _data = self._posData[4]
+            var _posX : CGFloat = CGFloat(_data["x"]!.toInt()!) 
+            var _posY : CGFloat = CGFloat(_data["y"]!.toInt()!)
+            var _maxLength : CGFloat = CGFloat(_data["width"]!.toInt()!)
+            //var _rotate : CGFloat = CGFloat(_data["rotate"]!.toInt()!)
+            var _rotate : CGFloat = CGFloat(_data["rotate"]!.toInt()!)
 
-        /*
-        //rand
-        var _pos = self.getRandPosition()
-        var _posX = _pos.x            
-        var _posY = _pos.y
-        var _maxLength = CGFloat(100 + arc4random_uniform(300))
-        */
-        var _picture = _picture
+            /*
+            //rand
+            var _pos = self.getRandPosition()
+            var _posX = _pos.x            
+            var _posY = _pos.y
+            var _maxLength = CGFloat(100 + arc4random_uniform(300))
+            */
+            var _picture = _picture
                 
-        if(_data["square"] == "true"){
-            _picture = _picture.getClippedImage(CGRectMake(0,0,500,500))
-        }
-        if(_data["filter"] != "none"){
-            _picture  = self.getSepiaFilterImage(_picture,filterName:_data["filter"]!)
-        }
-        if(_data["mask"] != "none"){
-            _picture = _picture.getMaskedImage(_data["mask"]!)
-        }
-        if(_data["frame"] == "INSTANT"){
-            _picture = _picture.getPolaroidPhoto()
-        }
-        if(_data["frame"] == "LUXURY"){
-            _picture = _picture.getPhoto2()
-        }
+            if(_data["square"] == "true"){
+                _picture = _picture.getClippedImage(CGRectMake(0,0,500,500))
+            }
+            if(_data["filter"] != "none"){
+                _picture  = self.getSepiaFilterImage(_picture,filterName:_data["filter"]!)
+            }
+            if(_data["mask"] != "none"){
+                _picture = _picture.getMaskedImage(_data["mask"]!)
+            }
+            if(_data["frame"] == "INSTANT"){
+                _picture = _picture.getPolaroidPhoto()
+            }
+            if(_data["frame"] == "LUXURY"){
+                _picture = _picture.getPhoto2()
+            }
 
-        var _scaledImage : UIImage = _picture.scaleToSize2(_maxLength)
-        var _scaledView = UIImageView(image:_scaledImage)
-        _scaledView.frame = CGRectMake(
-            _posX,
-            _posY,
-            _scaledImage.size.width,
-            _scaledImage.size.height
-        )
-        //回転はUIImageViewの方がやりやすいのでここで行う
-        //var _rot = CGFloat(arc4random_uniform(30))
-        var _rad = CGFloat(CGFloat(_rotate) * CGFloat(M_PI / 180)) // 45°回転させたい場合
-        _scaledView.transform = CGAffineTransformMakeRotation(_rad);
-        self.imageView.addSubview(_scaledView)
-        self.setPictures.append(_scaledView)
-
-        var _decoPosX : Float = Float(_data["deco1_pos_x"]!.toInt()!)
-        var _decoPosY : Float = Float(_data["deco1_pos_y"]!.toInt()!)
-        var _decoScale : Int = Int(_data["deco1_scale"]!.toInt()!)
-        var _decoRotate : Int = Int(_data["deco1_rotate"]!.toInt()!)
-
-        if(_data["deco1_image"] != ""){
-            self.pasteDecoration(
-                _scaledView,
-                image : _data["deco1_image"]!,
-                posX : _decoPosX/100,
-                posY : _decoPosY/100,
-                Scale : _decoScale,
-                Rotate : _decoRotate
+            var _scaledImage : UIImage = _picture.scaleToSize2(_maxLength)
+            var _scaledView = UIImageView(image:_scaledImage)
+            _scaledView.frame = CGRectMake(
+                _posX,
+                _posY,
+                _scaledImage.size.width,
+                _scaledImage.size.height
             )
+            //回転はUIImageViewの方がやりやすいのでここで行う
+            //var _rot = CGFloat(arc4random_uniform(30))
+            var _rad = CGFloat(CGFloat(_rotate) * CGFloat(M_PI / 180)) // 45°回転させたい場合
+            _scaledView.transform = CGAffineTransformMakeRotation(_rad);
+            self.imageView.addSubview(_scaledView)
+            self.setPictures.append(_scaledView)
+
+            var _decoPosX : Float = Float(_data["deco1_pos_x"]!.toInt()!)
+            var _decoPosY : Float = Float(_data["deco1_pos_y"]!.toInt()!)
+            var _decoScale : Int = Int(_data["deco1_scale"]!.toInt()!)
+            var _decoRotate : Int = Int(_data["deco1_rotate"]!.toInt()!)
+
+            if(_data["deco1_image"] != ""){
+                self.pasteDecoration(
+                    _scaledView,
+                    image : _data["deco1_image"]!,
+                    posX : _decoPosX/100,
+                    posY : _decoPosY/100,
+                    Scale : _decoScale,
+                    Rotate : _decoRotate
+                )
+            }
         }
     }
     

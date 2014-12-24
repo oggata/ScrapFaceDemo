@@ -16,11 +16,11 @@ extension UIColor {
         getRed(&r, green: &g, blue: &b, alpha: &a)
         return (red: (r * 255.0), green: (g * 255.0), blue: (b * 255.0), alpha: a)
     }
-    
-    
+
 }
 
 extension UIImageView {
+    
     func getRandRotation()->UIImageView {
         var _randNum = Int(arc4random_uniform(60)) - 30
         if(_randNum != 0){
@@ -32,7 +32,6 @@ extension UIImageView {
     }
     
     func setRotation(rotation:Int)->UIImageView {
-        //var _randNum = Int(arc4random_uniform(60)) - 30
         if(rotation != 0){
             var _rotate = CGFloat(rotation)
             var _rad = CGFloat(CGFloat(_rotate) * CGFloat(M_PI / 180))
@@ -40,6 +39,7 @@ extension UIImageView {
         }
         return self
     }
+
 }
 
 extension UIImage {
@@ -63,9 +63,7 @@ extension UIImage {
     
     /*
     func getFilteredImage(filterName:String){
-        
         var imageView = UIImageView(image:self)
-        
         var filter = CIFilter(name:"CIPhotoEffectInstant")
         var unfilteredImage = CIImage(CGImage:imageView.image?.CGImage)
         filter.setValue(unfilteredImage, forKey: kCIInputImageKey)
@@ -77,14 +75,26 @@ extension UIImage {
     }*/
     
     func getClippedImage(clipRect:CGRect) -> UIImage{
-        //var clipRect = CGRectMake(0,0,500,500)
-        var cliped : CGImageRef = CGImageCreateWithImageInRect(self.CGImage, clipRect)
+        var clipRect2 : CGRect
+        //自身の横、縦の長さを確認
+        var _x : CGFloat = 0
+        var _y : CGFloat = 0
+        var _w  = self.size.width
+        var _h = self.size.height
+        if(_w > _h){
+            _x =  CGFloat(_w/2 - clipRect.width/2)
+            _y =  CGFloat(0)
+        }else{
+            _x =  CGFloat(0)
+            _y =  CGFloat(_h/2 - clipRect.height/2)
+        }
+        clipRect2 = CGRectMake(_x,_y,clipRect.width,clipRect.height)
+        var cliped : CGImageRef = CGImageCreateWithImageInRect(self.CGImage, clipRect2)
         let clippedImage = UIImage(CGImage: cliped)
         return clippedImage!    
     }
     
     func getPhoto2() -> UIImage{        
-        //self.getClippedImage(CGRectMake(0,0,500,500))
         var toSize = CGSizeMake(self.size.width,self.size.height)
         UIGraphicsBeginImageContextWithOptions(toSize,false, 0.0)
         
@@ -104,7 +114,6 @@ extension UIImage {
     }
     
     func getPostageStamp() -> UIImage{
-        //self.getClippedImage(CGRectMake(0,0,500,500))
         var toSize = CGSizeMake(self.size.width,self.size.height)
         UIGraphicsBeginImageContextWithOptions(toSize,false, 0.0)
         
@@ -124,7 +133,6 @@ extension UIImage {
     }
     
     func getPolaroidPhoto() -> UIImage{
-        //self.getClippedImage(CGRectMake(0,0,500,500))
         var toSize = CGSizeMake(self.size.width,self.size.height)
         UIGraphicsBeginImageContextWithOptions(toSize,false, 0.0)
         
@@ -146,13 +154,9 @@ extension UIImage {
         UIGraphicsEndImageContext()
         return drawedImage
     }
-    
-    
-    
-    
+
     func getPhoto() -> UIImage{
 
-        //self.getClippedImage(CGRectMake(0,0,500,500))
         var toSize = CGSizeMake(400,400)
         UIGraphicsBeginImageContextWithOptions(toSize,false, 0.0)
         /*
@@ -168,19 +172,14 @@ extension UIImage {
         var _convH : CGFloat? = CGFloat(h! * scale)
         */
         let context = UIGraphicsGetCurrentContext()
-        
-        
+                
         var waku = UIImage(named:"frame_002.png")
         var clipRect = CGRectMake(0,0,500,500)
         var cliped : CGImageRef = CGImageCreateWithImageInRect(waku?.CGImage, clipRect)
-        
 
-        
-        
         //var rect : CGRect = CGRectMake(0,0,300,300);
         CGContextSetFillColorWithColor(context,UIColor.whiteColor().CGColor);
         //CGContextFillRect(context,rect);
-        
 
         drawInRect(CGRectMake(50, 50, 300, 300))
         let resizedImage = UIGraphicsGetImageFromCurrentImageContext()
@@ -204,9 +203,7 @@ extension UIImage {
         var extent = filteredImage.extent()
         var cgImage:CGImageRef = context.createCGImage(filteredImage, fromRect: extent)
         var finalImage : UIImage? = UIImage(CGImage: cgImage)
-    
     }*/
-    
     
     func getMaskedImage(fileName : String) -> UIImage {
         var originalImage = self
@@ -224,7 +221,6 @@ extension UIImage {
         let maskedImage = UIImage(CGImage: maskedImageReference)
         return maskedImage!
     }
-    
     
     func getMaskImageFromTappedColor(_tColor:UIColor) -> UIImage? {
         var _image = self
@@ -294,7 +290,6 @@ extension UIImage {
         
         var imageBytes : UnsafeMutablePointer<Byte>;
         imageBytes = nil;
-        
         
         //var w:UInt = UInt(sceneKitView.bounds.size.width * UIScreen.mainScreen().scale)
         //var h:UInt = UInt(sceneKitView.bounds.size.height * UIScreen.mainScreen().scale)
@@ -376,7 +371,6 @@ extension UIImage {
         return UIColor(red: r, green: g, blue: b, alpha: a)
     }
     
-    
     func fitnessBetweenImages(_tColor:UIColor) -> Void {
         var _image = self
         var _imageSize = _image.size
@@ -426,11 +420,7 @@ extension UIImage {
         //fitness += distanceBetweenColors(colorA, colorB) as Fitness
         }
         }
-        
-        
-        
-        
-        
+
         //var span : style = "color: rgb(0, 128, 128)"
         //for (x=0; x<self.size.width; x++) {
         for x in 0...Int(self.size.width){
