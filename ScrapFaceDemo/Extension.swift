@@ -133,6 +133,7 @@ extension UIImage {
     }
     
     func getPolaroidPhoto() -> UIImage{
+
         var toSize = CGSizeMake(self.size.width,self.size.height)
         UIGraphicsBeginImageContextWithOptions(toSize,false, 0.0)
         

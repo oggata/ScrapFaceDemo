@@ -19,6 +19,10 @@ class ViewController: UIViewController,UIImagePickerControllerDelegate, UINaviga
     var setDecorations:[UIImageView] = []
     var setLabels:[UILabel]=[]
     
+    var editingImage : UIImageView? = nil
+    
+    var canvasImageView : UIImageView!
+    
     @IBOutlet var titileLabel: UILabel!
     
     var _posData : Array<Dictionary<String,String>> = []
@@ -37,6 +41,11 @@ class ViewController: UIViewController,UIImagePickerControllerDelegate, UINaviga
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
+        
+        //self.canvasImageView = UIImageView(frame:CGRectMake(0,0,100,100))
+        //self.canvasImageView.backgroundColor = UIColor(patternImage: UIImage(named:"back_005.png")!)
+        //self.view.addSubview(self.canvasImageView)
+        
         self.changeFilter()
     }
 
@@ -45,6 +54,64 @@ class ViewController: UIViewController,UIImagePickerControllerDelegate, UINaviga
         // Dispose of any resources that can be recreated.
     }
     
+    override func touchesBegan(touches: NSSet, withEvent event: UIEvent) {
+        let t = touches.anyObject() as UITouch
+        let point = t.locationInView(self.view)        
+        var _imageViewPointX = point.x - self.imageView.frame.origin.x
+        var _imageViewPointY = point.y - self.imageView.frame.origin.y
+        for var i = 0; i < self.setDecorations.count; i++ {            
+            if(self.setDecorations[i].frame.origin.x <= _imageViewPointX
+                && _imageViewPointX <= self.setDecorations[i].frame.origin.x + self.setDecorations[i].frame.size.width 
+                && 
+                self.setDecorations[i].frame.origin.y <= _imageViewPointY 
+                && _imageViewPointY <= self.setDecorations[i].frame.origin.y + self.setDecorations[i].frame.size.height
+                ){
+                    self.editingImage = setDecorations[i]
+            }
+        }
+        for var i = 0; i < self.setPictures.count; i++ {
+            if(self.setPictures[i].frame.origin.x <= _imageViewPointX 
+                && _imageViewPointX <= self.setPictures[i].frame.origin.x + self.setPictures[i].frame.size.width 
+                && self.setPictures[i].frame.origin.y <= _imageViewPointY 
+                && _imageViewPointY <= self.setPictures[i].frame.origin.y + self.setPictures[i].frame.size.height
+                ){
+                    println("HIT!")                    
+                    self.editingImage = setPictures[i]
+            }
+        }
+    }
+    
+    override func touchesMoved(touches: NSSet, withEvent event: UIEvent)  {
+        let t = touches.anyObject() as UITouch
+        let point = t.locationInView(self.view)
+        var _imageViewPointX = point.x - self.imageView.frame.origin.x
+        var _imageViewPointY = point.y - self.imageView.frame.origin.y
+        
+        if(self.editingImage != nil){
+                     
+            //アフィン変換されている場合は移動する前に一度初期化して、異動後に戻す必要がある
+            var tmpTransform = self.editingImage!.transform
+            if(!CGAffineTransformIsIdentity(self.editingImage!.transform)){
+                self.editingImage!.transform = CGAffineTransformIdentity
+            }
+            self.editingImage?.frame = CGRectMake(
+                _imageViewPointX - self.editingImage!.frame.size.width / 2,
+                _imageViewPointY - self.editingImage!.frame.size.height / 2,
+                self.editingImage!.frame.size.width,
+                self.editingImage!.frame.size.height
+            )
+            //戻す
+            self.editingImage!.transform = tmpTransform
+        }
+    }
+    
+    override func touchesEnded(touches: NSSet, withEvent event: UIEvent) {
+        self.editingImage = nil
+        //println("touchEnd")
+        //if(self.editingUIImageView != nil){
+            
+        //}
+    }
     
     func loadJSONFile(filterName:String) -> Array<Dictionary<String,String>>  {
         
@@ -53,10 +120,7 @@ class ViewController: UIViewController,UIImagePickerControllerDelegate, UINaviga
         var fileHandle : NSFileHandle = NSFileHandle(forReadingAtPath: filePath!)!
         var acceptData : NSData = fileHandle.readDataToEndOfFile()
         let str = NSString(data:acceptData, encoding:NSUTF8StringEncoding)
-        
-        
 
-        
         var rtnData:Array<Dictionary<String,String>> = []
         var parseJson = JSON.parse(str as NSString!)
         for (i, v) in parseJson {
@@ -261,6 +325,7 @@ class ViewController: UIViewController,UIImagePickerControllerDelegate, UINaviga
                 _scaledImage.size.width,
                 _scaledImage.size.height
             )
+
             //回転はUIImageViewの方がやりやすいのでここで行う
             //var _rot = CGFloat(arc4random_uniform(30))
             var _rad = CGFloat(CGFloat(_rotate) * CGFloat(M_PI / 180)) // 45°回転させたい場合
@@ -268,12 +333,12 @@ class ViewController: UIViewController,UIImagePickerControllerDelegate, UINaviga
             self.imageView.addSubview(_scaledView)
             self.setPictures.append(_scaledView)
 
-            var _decoPosX : Float = Float(_data["deco1_pos_x"]!.toInt()!)
-            var _decoPosY : Float = Float(_data["deco1_pos_y"]!.toInt()!)
-            var _decoScale : Int = Int(_data["deco1_scale"]!.toInt()!)
-            var _decoRotate : Int = Int(_data["deco1_rotate"]!.toInt()!)
-
             if(_data["deco1_image"] != ""){
+                var _decoPosX : Float = Float(_data["deco1_pos_x"]!.toInt()!)
+                var _decoPosY : Float = Float(_data["deco1_pos_y"]!.toInt()!)
+                var _decoScale : Int = Int(_data["deco1_scale"]!.toInt()!)
+                var _decoRotate : Int = Int(_data["deco1_rotate"]!.toInt()!)
+                
                 self.pasteDecoration(
                     _scaledView,
                     image : _data["deco1_image"]!,
