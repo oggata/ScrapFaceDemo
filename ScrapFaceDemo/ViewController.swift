@@ -54,6 +54,9 @@ class ViewController: UIViewController,UIImagePickerControllerDelegate, UINaviga
         var acceptData : NSData = fileHandle.readDataToEndOfFile()
         let str = NSString(data:acceptData, encoding:NSUTF8StringEncoding)
         
+        
+
+        
         var rtnData:Array<Dictionary<String,String>> = []
         var parseJson = JSON.parse(str as NSString!)
         for (i, v) in parseJson {
@@ -68,11 +71,27 @@ class ViewController: UIViewController,UIImagePickerControllerDelegate, UINaviga
                 "width":v["width"].asString!,
                 "rotate":v["rotate"].asString!,
                 "square":v["square"].asString!,
-                "frame":v["frame"].asString!,
-                "decoration1":v["decoration1"].asString!,
-                "decoration2":v["decoration2"].asString!,
-                "decoration3":v["decoration3"].asString!,
+                "frame":v["frame"].asString!
             ]
+            
+            _data["deco1_image"] = v["deco1_image"].asString!
+            _data["deco1_pos_x"] = v["deco1_pos_x"].asString!
+            _data["deco1_pos_y"] = v["deco1_pos_y"].asString!
+            _data["deco1_scale"] = v["deco1_scale"].asString!
+            _data["deco1_rotate"] = v["deco1_rotate"].asString!
+            
+            _data["deco2_image"] = v["deco2_image"].asString!
+            _data["deco2_pos_x"] = v["deco2_pos_x"].asString!
+            _data["deco2_pos_y"] = v["deco2_pos_y"].asString!
+            _data["deco2_scale"] = v["deco2_scale"].asString!
+            _data["deco2_rotate"] = v["deco2_rotate"].asString!
+            
+            _data["deco3_image"] = v["deco3_image"].asString!
+            _data["deco3_pos_x"] = v["deco3_pos_x"].asString!
+            _data["deco3_pos_y"] = v["deco3_pos_y"].asString!
+            _data["deco3_scale"] = v["deco3_scale"].asString!
+            _data["deco3_rotate"] = v["deco3_rotate"].asString!
+                        
             rtnData.append(_data)
         }
         
@@ -225,17 +244,13 @@ class ViewController: UIViewController,UIImagePickerControllerDelegate, UINaviga
         if(_data["mask"] != "none"){
             _picture = _picture.getMaskedImage(_data["mask"]!)
         }
-
-        
         if(_data["frame"] == "INSTANT"){
             _picture = _picture.getPolaroidPhoto()
         }
         if(_data["frame"] == "LUXURY"){
             _picture = _picture.getPhoto2()
         }
-        
 
-        
         var _scaledImage : UIImage = _picture.scaleToSize2(_maxLength)
         var _scaledView = UIImageView(image:_scaledImage)
         _scaledView.frame = CGRectMake(
@@ -250,204 +265,49 @@ class ViewController: UIViewController,UIImagePickerControllerDelegate, UINaviga
         _scaledView.transform = CGAffineTransformMakeRotation(_rad);
         self.imageView.addSubview(_scaledView)
         self.setPictures.append(_scaledView)
-        
-        
-        
-        
-        if(_data["decoration1"] == "PAPER_TAPE_FUN"){
-            self.pasteTape(_scaledView)
-            //self.pasteFlowers(_scaledView)
-        }
-        if(_data["decoration1"] == "FUKIDASHI_SMART"){
-            self.pasteFukidashi(_scaledView)
-        }
-        if(_data["decoration1"] == "LEAVES_SMART"){
-            self.pasteLeaves(_scaledView)
-        }
-        if(_data["decoration1"] == "PINS"){
-            self.pastePin(_scaledView)
-        }
-    }
 
-    
-    
-    func pastePin(targetPhoto:UIImageView){
-        
-        //ランダムで5種類の中からテープを選ぶ
-        var _tapeImage = UIImage(named:"pin_red.png")
-        var rand = Int(arc4random_uniform(5) + 1)
-        if(rand == 1){
-            _tapeImage = UIImage(named:"pin_red.png")
-        }
-        if(rand == 2){
-            _tapeImage = UIImage(named:"pin_blue.png")
-        }
-        if(rand == 3){
-            _tapeImage = UIImage(named:"pin_yellow.png")
-        }
-        if(rand == 4){
-            _tapeImage = UIImage(named:"pin_green.png")
-        }
-        if(rand == 5){
-            _tapeImage = UIImage(named:"pin_orange.png")
-        }
-        
-        //テープのイメージを描く
-        _tapeImage = _tapeImage?.scaleToSize2(CGFloat(30))
-        var _tape = UIImageView(image:_tapeImage)
-        var w : CGFloat? = _tape.image?.size.width
-        var h : CGFloat? = _tape.image?.size.height
-        
-        //配置する場所を決める
-        //中央
-        var _x = targetPhoto.frame.origin.x + targetPhoto.frame.size.width/2
-        var _y = targetPhoto.frame.origin.y - h!/3
-        _tape.frame = CGRectMake(
-            _x,
-            _y,
-            w!,
-            h!
-        )
-        _tape = _tape.getRandRotation()
-        self.imageView.addSubview(_tape)
-        self.setDecorations.append(_tape)
-    }
+        var _decoPosX : Float = Float(_data["deco1_pos_x"]!.toInt()!)
+        var _decoPosY : Float = Float(_data["deco1_pos_y"]!.toInt()!)
+        var _decoScale : Int = Int(_data["deco1_scale"]!.toInt()!)
+        var _decoRotate : Int = Int(_data["deco1_rotate"]!.toInt()!)
 
-    
-    func pasteTape(targetPhoto:UIImageView){
-        
-        //ランダムで5種類の中からテープを選ぶ
-        var _tapeImage = UIImage(named:"tape_001.png")
-        var rand = Int(arc4random_uniform(5) + 1)
-        if(rand == 1){
-            _tapeImage = UIImage(named:"tape_001.png")
+        if(_data["deco1_image"] != ""){
+            self.pasteDecoration(
+                _scaledView,
+                image : _data["deco1_image"]!,
+                posX : _decoPosX/100,
+                posY : _decoPosY/100,
+                Scale : _decoScale,
+                Rotate : _decoRotate
+            )
         }
-        if(rand == 2){
-            _tapeImage = UIImage(named:"tape_002.png")
-        }
-        if(rand == 3){
-            _tapeImage = UIImage(named:"tape_003.png")
-        }
-        if(rand == 4){
-            _tapeImage = UIImage(named:"tape_004.png")
-        }
-        if(rand == 5){
-            _tapeImage = UIImage(named:"tape_005.png")
-        }
-        
-        //テープのイメージを描く
-        _tapeImage = _tapeImage?.scaleToSize2(CGFloat(100))
-        var _tape = UIImageView(image:_tapeImage)
-        var w : CGFloat? = _tape.image?.size.width
-        var h : CGFloat? = _tape.image?.size.height
-        
-        //配置する場所を決める
-        var rand2 = Int(arc4random_uniform(2) + 1)
-        //左上
-        var _x = targetPhoto.frame.origin.x
-        var _y = targetPhoto.frame.origin.y
-        if(rand2 == 2){
-            //右上
-            _x = targetPhoto.frame.origin.x + targetPhoto.frame.size.width - w!
-            _y = targetPhoto.frame.origin.y - h!/3
-        }
-        if(rand2 == 3){
-            //中央
-            _x = targetPhoto.frame.origin.x + targetPhoto.frame.size.width/2
-            _y = targetPhoto.frame.origin.y - h!/3
-        }
-
-        _tape.frame = CGRectMake(
-            _x,
-            _y,
-            w!,
-            h!
-        )
-        _tape = _tape.getRandRotation()
-        self.imageView.addSubview(_tape)
-        self.setDecorations.append(_tape)
     }
     
     
-    func pasteFukidashi(targetPhoto:UIImageView){
-        //ランダムで5種類の中から吹き出しを選ぶ
-        var _tapeImage = UIImage(named:"fukidashi_001.png")
-        var rand = Int(arc4random_uniform(5) + 1)
-        if(rand == 1){
-            _tapeImage = UIImage(named:"fukidashi_001.png")
-        }
-        if(rand == 2){
-            _tapeImage = UIImage(named:"fukidashi_002.png")
-        }
-        if(rand == 3){
-            _tapeImage = UIImage(named:"fukidashi_003.png")
-        }
-        if(rand == 4){
-            _tapeImage = UIImage(named:"fukidashi_004.png")
-        }
-        if(rand == 5){
-            _tapeImage = UIImage(named:"fukidashi_005.png")
-        }
-        
+    func pasteDecoration(targetPhoto:UIImageView,image:String,posX:Float,posY:Float,Scale:Int,Rotate:Int){
+        var _decoImage = UIImage(named:image)
         //テープのイメージを描く
-        _tapeImage = _tapeImage?.scaleToSize2(CGFloat(100))
-        var _tape = UIImageView(image:_tapeImage)
-        var w : CGFloat? = _tape.image?.size.width
-        var h : CGFloat? = _tape.image?.size.height
+        _decoImage = _decoImage?.scaleToSize2(CGFloat(Scale))
+        var _deco = UIImageView(image:_decoImage)
+        var w : CGFloat? = _deco.image?.size.width
+        var h : CGFloat? = _deco.image?.size.height
         
         //配置する場所を決める
-        var rand2 = Int(arc4random_uniform(2) + 1)
-        //左上
-        var _x = targetPhoto.frame.origin.x
-        var _y = targetPhoto.frame.origin.y + targetPhoto.frame.size.height / 2
-        if(rand2 == 2){
-            //右上
-            _x = targetPhoto.frame.origin.x + targetPhoto.frame.size.width - w!
-            _y = targetPhoto.frame.origin.y + targetPhoto.frame.size.height / 2
-        }
-        if(rand2 == 3){
-            //中央
-            _x = targetPhoto.frame.origin.x + targetPhoto.frame.size.width/2
-            _y = targetPhoto.frame.origin.y + targetPhoto.frame.size.height / 2
-        }
-        
-        _tape.frame = CGRectMake(
-            _x,
-            _y,
+        var _x = targetPhoto.frame.origin.x+CGFloat(targetPhoto.frame.size.width * CGFloat(posX))
+        var _y = targetPhoto.frame.origin.y+CGFloat(targetPhoto.frame.size.height * CGFloat(posY))
+        _deco.frame = CGRectMake(
+            _x-CGFloat(w!/2),
+            _y-CGFloat(h!/2),
             w!,
             h!
         )
-        _tape = _tape.getRandRotation()
-        self.imageView.addSubview(_tape)
-        self.setDecorations.append(_tape)
-        
-        
-        
-        var label = UILabel()
-        label.frame = CGRectMake(
-            _x,
-            _y,
-            500,
-            100
-        )
-        
-        //once in a blue moon
-        var rand3 = Int(arc4random_uniform(5) + 1)
-        label.text = "I have a dream today!"
-        if(rand3 == 2){
-            label.text = "Once In A Blue Moon"
-        }
-        if(rand3 == 3){
-            label.text = "WHAT'S UP?"
-        }
-        if(rand3 == 4){
-            label.text = "Never say never"
-        }
-        if(rand3 == 5){
-            label.text = "The sky is the limit"
-        }
+        //_deco = _deco.getRandRotation()
+        _deco = _deco.setRotation(Rotate)
+        self.imageView.addSubview(_deco)
+        self.setDecorations.append(_deco)
+    }
+    
 /*
-        
         label.text = "I have a dream today!"
         label.textAlignment = NSTextAlignment.Center//整列
         //label.font = UIFont.systemFontOfSize(32);//文字サイズ
@@ -459,116 +319,6 @@ class ViewController: UIViewController,UIImagePickerControllerDelegate, UINaviga
         self.view.addSubview(label)
         self.setLabels.append(label)
 */
-    }
-
-    
-    func pasteLeaves(targetPhoto:UIImageView){
-        //ランダムで5種類の中から吹き出しを選ぶ
-        var _tapeImage = UIImage(named:"leave_001.png")
-        var rand = Int(arc4random_uniform(5) + 1)
-        if(rand == 1){
-            _tapeImage = UIImage(named:"leave_001.png")
-        }
-        if(rand == 2){
-            _tapeImage = UIImage(named:"leave_002.png")
-        }
-        if(rand == 3){
-            _tapeImage = UIImage(named:"leave_003.png")
-        }
-        if(rand == 4){
-            _tapeImage = UIImage(named:"leave_004.png")
-        }
-        if(rand == 5){
-            _tapeImage = UIImage(named:"leave_005.png")
-        }
-        
-        //テープのイメージを描く
-        _tapeImage = _tapeImage?.scaleToSize2(CGFloat(100))
-        var _tape = UIImageView(image:_tapeImage)
-        var w : CGFloat? = _tape.image?.size.width
-        var h : CGFloat? = _tape.image?.size.height
-        
-        //配置する場所を決める
-        var rand2 = Int(arc4random_uniform(2) + 1)        
-        //左上
-        var _x = targetPhoto.frame.origin.x
-        var _y = targetPhoto.frame.origin.y + targetPhoto.frame.size.height / 2
-        if(rand2 == 2){
-            //右上
-            _x = targetPhoto.frame.origin.x + targetPhoto.frame.size.width - w!
-            _y = targetPhoto.frame.origin.y + targetPhoto.frame.size.height / 2
-        }
-        if(rand2 == 3){
-            //中央
-            _x = targetPhoto.frame.origin.x + targetPhoto.frame.size.width/2
-            _y = targetPhoto.frame.origin.y + targetPhoto.frame.size.height / 2
-        }
-        
-        _tape.frame = CGRectMake(
-            _x,
-            _y,
-            w!,
-            h!
-        )
-        _tape = _tape.getRandRotation()
-        self.imageView.addSubview(_tape)
-        self.setDecorations.append(_tape)
-    }
-
-    
-    func pasteFlowers(targetPhoto:UIImageView){
-        //ランダムで5種類の中から吹き出しを選ぶ
-        var _tapeImage = UIImage(named:"flower_001.png")
-        var rand = Int(arc4random_uniform(5) + 1)
-        if(rand == 1){
-            _tapeImage = UIImage(named:"flower_001.png")
-        }
-        if(rand == 2){
-            _tapeImage = UIImage(named:"flower_002.png")
-        }
-        if(rand == 3){
-            _tapeImage = UIImage(named:"flower_003.png")
-        }
-        if(rand == 4){
-            _tapeImage = UIImage(named:"flower_004.png")
-        }
-        if(rand == 5){
-            _tapeImage = UIImage(named:"flower_005.png")
-        }
-        
-        //テープのイメージを描く
-        _tapeImage = _tapeImage?.scaleToSize2(CGFloat(100))
-        var _tape = UIImageView(image:_tapeImage)
-        var w : CGFloat? = _tape.image?.size.width
-        var h : CGFloat? = _tape.image?.size.height
-        
-        //配置する場所を決める
-        var rand2 = Int(arc4random_uniform(2) + 1)        
-        //左上
-        var _x = targetPhoto.frame.origin.x
-        var _y = targetPhoto.frame.origin.y + targetPhoto.frame.size.height * 3/5
-        if(rand2 == 2){
-            //右上
-            _x = targetPhoto.frame.origin.x + targetPhoto.frame.size.width - w!
-            _y = targetPhoto.frame.origin.y + targetPhoto.frame.size.height * 3/5
-        }
-        if(rand2 == 3){
-            //中央
-            _x = targetPhoto.frame.origin.x + targetPhoto.frame.size.width/2
-            _y = targetPhoto.frame.origin.y + targetPhoto.frame.size.height * 3/5
-        }
-        
-        _tape.frame = CGRectMake(
-            _x,
-            _y,
-            w!,
-            h!
-        )
-        _tape = _tape.getRandRotation()
-        self.imageView.addSubview(_tape)
-        self.setDecorations.append(_tape)
-    }
-    
 
     
     //画像にフィルターをかける
@@ -583,31 +333,7 @@ class ViewController: UIViewController,UIImagePickerControllerDelegate, UINaviga
         var finalImage = UIImage(CGImage: cgImage)
         return finalImage!
     }
-    
-    //func getTrimedImage() -> UIImage{
-        //var clipRect = CGRectMake(0,0,500,500)
-        //var cliped : CGImageRef = CGImageCreateWithImageInRect(srcImage.CGImage, clipRect);
-        
-        /*
-        var trimingSize = CGSizeMake(500,500)
-        var trimingRect = CGRectMake(
-            0,
-            0,
-            500,
-            500
-        )
-        //var trimedImage : CIImage = ciImage.imageByCroppingToRect(trimingRect)
-        //var uiImage : UIImage = 
-        var ciImage  = CIImage(CGImage:_uiImage?.CGImage)
-        var context = CIContext(options: nil)
-        var filteredImage: CIImage = ciImage.imageByCroppingToRect(trimingRect)
-        var extent = filteredImage.extent()
-        var cgImage:CGImageRef = context.createCGImage(filteredImage, fromRect: extent)
-        var finalImage : UIImage? = UIImage(CGImage: cgImage)
-        */
-    //}    
 
-    
     // MARK: - 写真の制御
     
     private func openAlbum() {

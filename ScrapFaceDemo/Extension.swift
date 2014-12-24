@@ -30,6 +30,16 @@ extension UIImageView {
         }
         return self
     }
+    
+    func setRotation(rotation:Int)->UIImageView {
+        //var _randNum = Int(arc4random_uniform(60)) - 30
+        if(rotation != 0){
+            var _rotate = CGFloat(rotation)
+            var _rad = CGFloat(CGFloat(_rotate) * CGFloat(M_PI / 180))
+            self.transform = CGAffineTransformMakeRotation(_rad);
+        }
+        return self
+    }
 }
 
 extension UIImage {

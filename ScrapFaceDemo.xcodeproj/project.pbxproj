@@ -63,7 +63,6 @@
 		F3AD39171A41770800F7BB89 /* space.jpg in Resources */ = {isa = PBXBuildFile; fileRef = F3AD39161A41770800F7BB89 /* space.jpg */; };
 		F3AD39191A4180A200F7BB89 /* CoreImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F3AD39181A4180A200F7BB89 /* CoreImage.framework */; };
 		F3AD391B1A4180B500F7BB89 /* Photos.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F3AD391A1A4180B500F7BB89 /* Photos.framework */; };
-		F3AD391D1A41862000F7BB89 /* IMG_0444.JPG in Resources */ = {isa = PBXBuildFile; fileRef = F3AD391C1A41862000F7BB89 /* IMG_0444.JPG */; };
 		F3AD391F1A426A7E00F7BB89 /* back_001.png in Resources */ = {isa = PBXBuildFile; fileRef = F3AD391E1A426A7E00F7BB89 /* back_001.png */; };
 		F3AD39211A426B2F00F7BB89 /* back_002.png in Resources */ = {isa = PBXBuildFile; fileRef = F3AD39201A426B2F00F7BB89 /* back_002.png */; };
 		F3AD39231A426B6200F7BB89 /* back_003.png in Resources */ = {isa = PBXBuildFile; fileRef = F3AD39221A426B6200F7BB89 /* back_003.png */; };
@@ -142,7 +141,6 @@
 		F3AD39161A41770800F7BB89 /* space.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = space.jpg; sourceTree = "<group>"; };
 		F3AD39181A4180A200F7BB89 /* CoreImage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreImage.framework; path = System/Library/Frameworks/CoreImage.framework; sourceTree = SDKROOT; };
 		F3AD391A1A4180B500F7BB89 /* Photos.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Photos.framework; path = System/Library/Frameworks/Photos.framework; sourceTree = SDKROOT; };
-		F3AD391C1A41862000F7BB89 /* IMG_0444.JPG */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = IMG_0444.JPG; path = ../../../Downloads/IMG_0444.JPG; sourceTree = "<group>"; };
 		F3AD391E1A426A7E00F7BB89 /* back_001.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = back_001.png; sourceTree = "<group>"; };
 		F3AD39201A426B2F00F7BB89 /* back_002.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = back_002.png; sourceTree = "<group>"; };
 		F3AD39221A426B6200F7BB89 /* back_003.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = back_003.png; sourceTree = "<group>"; };
@@ -250,7 +248,6 @@
 				F33EF7DC1A43D26200877678 /* mask */,
 				F33EF7DB1A43D25A00877678 /* back */,
 				F3AD39141A41706B00F7BB89 /* utyujin.png */,
-				F3AD391C1A41862000F7BB89 /* IMG_0444.JPG */,
 				F3AD390E1A41551200F7BB89 /* syugou.jpg */,
 			);
 			name = images;
@@ -437,7 +434,6 @@
 				F366869A1A4430D900898C4D /* pin_red.png in Resources */,
 				F3AD38F81A41502F00F7BB89 /* LaunchScreen.xib in Resources */,
 				F36686991A4430D900898C4D /* pin_yellow.png in Resources */,
-				F3AD391D1A41862000F7BB89 /* IMG_0444.JPG in Resources */,
 				F3AD38F51A41502F00F7BB89 /* Images.xcassets in Resources */,
 				F33EF7F01A43E1BB00877678 /* fukidashi_003.png in Resources */,
 				F36686931A44265500898C4D /* flower_004.png in Resources */,
