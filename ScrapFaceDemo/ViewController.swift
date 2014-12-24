@@ -32,9 +32,7 @@ class ViewController: UIViewController,UIImagePickerControllerDelegate, UINaviga
     var isTargetButton03On : Bool = false
     var targetButton04 : UIImageView!
     var isTargetButton04On : Bool = false
-    
-    
-    
+        
     @IBOutlet var titileLabel: UILabel!
     
     var _posData : Array<Dictionary<String,String>> = []
@@ -57,9 +55,7 @@ class ViewController: UIViewController,UIImagePickerControllerDelegate, UINaviga
         //self.canvasImageView = UIImageView(frame:CGRectMake(0,0,100,100))
         //self.canvasImageView.backgroundColor = UIColor(patternImage: UIImage(named:"back_005.png")!)
         //self.view.addSubview(self.canvasImageView)
-        
-        
- 
+
         var _targetImage : UIImage
         var _frame:CGRect = CGRect(x: 0,y:0,width:100,height:100)
         // ビットマップ形式のグラフィックスコンテキストの生成
@@ -233,8 +229,6 @@ class ViewController: UIViewController,UIImagePickerControllerDelegate, UINaviga
             )
             self.moveTargetUI()
             
-            
-            
             if(self.isTargetButton03On){
                 self.imageView.bringSubviewToFront(self.editingImage!)
             }
@@ -276,16 +270,6 @@ class ViewController: UIViewController,UIImagePickerControllerDelegate, UINaviga
                 if(self.editingImage != nil){
                     self.imageView.bringSubviewToFront(self.targetView)
                     self.targetView?.hidden = false
-                    var _x  = self.editingImage?.frame.origin.x
-                    var _y  = self.editingImage?.frame.origin.y
-                    var _width = self.editingImage?.frame.size.width
-                    var _height = self.editingImage?.frame.size.height
-                    self.targetView.frame = CGRectMake(
-                        _x!,
-                        _y!,
-                        _width!,
-                        _height!
-                    )
                     self.moveTargetUI()
                 }else{
                     self.targetView?.hidden = true
@@ -341,10 +325,8 @@ class ViewController: UIViewController,UIImagePickerControllerDelegate, UINaviga
                     println("4444444444")
                 }                
             }
-            self.moveTargetUI()
         }        
         self._tmpImagePoint = self._imagePoint
-        
         self.moveTargetUI()
     }
     
