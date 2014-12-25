@@ -537,10 +537,11 @@ class ViewController: UIViewController,UIImagePickerControllerDelegate, UINaviga
                 _picture = _picture.getClippedImage(CGRectMake(0,0,500,500))
             }
             if(_data["filter"] != "none"){
-                _picture  = self.getSepiaFilterImage(_picture,filterName:_data["filter"]!)
+                _picture = _picture.getFilteredImage(_data["filter"]!)!
             }
             if(_data["mask"] != "none"){
-                _picture = _picture.getMaskedImage(_data["mask"]!)
+                var _image = UIImage(named:_data["mask"]!)
+                _picture = _picture.getMaskedImage(_image!)
             }
             if(_data["frame"] == "INSTANT"){
                 _picture = _picture.getPolaroidPhoto()
@@ -621,19 +622,6 @@ class ViewController: UIViewController,UIImagePickerControllerDelegate, UINaviga
 */
 
     
-    //画像にフィルターをかける
-    func getSepiaFilterImage(baseImage:UIImage,filterName:String) -> UIImage{
-        var filter = CIFilter(name:filterName)
-        var unfilteredImage = CIImage(CGImage:baseImage.CGImage)
-        filter.setValue(unfilteredImage, forKey: kCIInputImageKey)
-        var context = CIContext(options: nil)
-        var filteredImage: CIImage = filter.outputImage
-        var extent = filteredImage.extent()
-        var cgImage:CGImageRef = context.createCGImage(filteredImage, fromRect: extent)
-        var finalImage = UIImage(CGImage: cgImage)
-        return finalImage!
-    }
-
     // MARK: - 写真の制御
     
     private func openAlbum() {
