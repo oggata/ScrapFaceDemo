@@ -16,12 +16,15 @@ class ViewController: UIViewController,UIImagePickerControllerDelegate, UINaviga
     var filterName = "filter_001"
     var pictures:[UIImage] = []
     var setPictures:[UIImageView] = []
-    var setDecorations:[UIImageView] = []
+    //var setDecorations:[UIImageView] = []
     var setLabels:[UILabel]=[]
     
     var editingImage : UIImageView? = nil
     
     var canvasImageView : UIImageView!
+    
+    @IBOutlet var filterScrollView: UIScrollView!
+    var filterUIView : UIImageView!
     
     var targetView : UIImageView!
     var targetButton01 : UIImageView!
@@ -34,30 +37,25 @@ class ViewController: UIViewController,UIImagePickerControllerDelegate, UINaviga
     var isTargetButton04On : Bool = false
         
     @IBOutlet var titileLabel: UILabel!
-    
     var _posData : Array<Dictionary<String,String>> = []
+    @IBOutlet var scrollView: TouchScrollView!
+    var baseView : UIImageView!
     
-    @IBOutlet var imageView: UIImageView!
+    //@IBOutlet var filterScrollView: UIScrollView!
     @IBOutlet var openAlbumButton: UIButton!
     @IBAction func openAlbumButtonDidTouch(sender: AnyObject) {
-        println("xx")
+        //println("xx")
         self.openAlbum()
     }
     @IBOutlet var openFilterButton: UIButton!
     @IBAction func openFilterButtonDidTouch(sender: AnyObject) {
-        println("yy")
+        //println("yy")
         self.changeFilter()
     }
     
     let uiButton: UIButton = UIButton()
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
-        
-        //self.canvasImageView = UIImageView(frame:CGRectMake(0,0,100,100))
-        //self.canvasImageView.backgroundColor = UIColor(patternImage: UIImage(named:"back_005.png")!)
-        //self.view.addSubview(self.canvasImageView)
 
+    func getBrankImage() -> UIImage{
         var _targetImage : UIImage
         var _frame:CGRect = CGRect(x: 0,y:0,width:100,height:100)
         // ビットマップ形式のグラフィックスコンテキストの生成
@@ -70,10 +68,56 @@ class ViewController: UIViewController,UIImagePickerControllerDelegate, UINaviga
         _targetImage = UIGraphicsGetImageFromCurrentImageContext();
         // 現在のグラフィックスコンテキストへの編集を終了
         UIGraphicsEndImageContext();
-        self.targetView = UIImageView(image:_targetImage)
-        self.imageView.addSubview(self.targetView)
-        self.targetView?.hidden = true
+        return _targetImage
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
 
+        //スクロールビューを設定
+        scrollView.frame  = CGRectMake(0,0,2000,2000)
+        scrollView.contentSize = CGSizeMake(2000,2000)
+        scrollView.userInteractionEnabled = true;
+        scrollView.scrollEnabled = true
+        scrollView.delaysContentTouches = true
+        scrollView.minimumZoomScale = 0.2
+        scrollView.maximumZoomScale = 8
+        scrollView.rootView = self
+        
+        //スクロールビューと画像系の間に噛ませるView
+        self.baseView = UIImageView(frame:scrollView.frame)
+        self.scrollView.addSubview(self.baseView)
+        self.targetView = UIImageView(image:self.getBrankImage())
+        self.baseView.addSubview(self.targetView)
+        self.targetView?.hidden = true
+        
+        filterScrollView.frame  = CGRectMake(0,0,2000,2000)
+        filterScrollView.contentSize = CGSizeMake(2000,80)
+        filterScrollView.userInteractionEnabled = true;
+        filterScrollView.scrollEnabled = true
+        filterScrollView.delaysContentTouches = true
+
+        var _filterButton001 = UIButton()
+        _filterButton001.frame = CGRectMake(0,0,80,80)
+        _filterButton001.setImage(UIImage(named:"filter_001.png"), forState: .Normal)
+        self.filterScrollView.addSubview(_filterButton001)
+
+        var _filterButton002 = UIButton()
+        _filterButton002.frame = CGRectMake(100,0,80,80)
+        _filterButton002.setImage(UIImage(named:"filter_002.png"), forState: .Normal)
+        self.filterScrollView.addSubview(_filterButton002)
+        
+        var _filterButton003 = UIButton()
+        _filterButton003.frame = CGRectMake(200,0,80,80)
+        _filterButton003.setImage(UIImage(named:"filter_003.png"), forState: .Normal)
+        self.filterScrollView.addSubview(_filterButton003)
+        
+        var _filterButton004 = UIButton()
+        _filterButton004.frame = CGRectMake(300,0,80,80)
+        _filterButton004.setImage(UIImage(named:"filter_004.png"), forState: .Normal)
+        self.filterScrollView.addSubview(_filterButton004)
+
+        
         //ボタン1
         self.targetButton01 = UIImageView(frame:CGRectMake(0,0,26,26))
         self.targetButton01.image = UIImage(named:"scale_button.png")
@@ -90,33 +134,7 @@ class ViewController: UIViewController,UIImagePickerControllerDelegate, UINaviga
         self.targetButton04 = UIImageView(frame:CGRectMake(0,0,26,26))
         self.targetButton04.image = UIImage(named:"down_button.png")
         self.targetView?.addSubview(self.targetButton04)
-        
-        
-        //ボタン2
-/*
-        var button = UIButton()
-        button.setTitle("Tap Me!", forState: .Normal)
-        button.setTitleColor(UIColor.blueColor(), forState: .Normal)
-        button.setTitle("Tapped!", forState: .Highlighted)
-        button.setTitleColor(UIColor.redColor(), forState: .Highlighted)
-        button.frame = CGRectMake(0, 0, 300, 50)        
-        button.layer.position = CGPoint(x: self.view.frame.width/2, y:100)
-        button.backgroundColor = UIColor(red: 0.7, green: 0.2, blue: 0.2, alpha: 0.2)
-        button.layer.cornerRadius = 10
-        button.layer.borderWidth = 1
-        button.addTarget(self, action: Selector("onClickButton:"), forControlEvents: .TouchDown)
-        //button.addTarget(self, action: "animateButtonDown", forControlEvents:.TouchUpInside)
-        self.targetView?.addSubview(button)
-*/       
-        /*
-        let t = UITapGestureRecognizer(target: self, action: "tap:")
-        self.imageView.addGestureRecognizer(t)
-        t.cancelsTouchesInView = false
-        */
-        
-        // 设置 View 的背景色为 clear.
-        //self.view.backgroundColor = UIColor.clearColor()
-        
+
         self.setImageEditorUI()
         
         self.changeFilter()
@@ -182,13 +200,15 @@ class ViewController: UIViewController,UIImagePickerControllerDelegate, UINaviga
         // Dispose of any resources that can be recreated.
     }
     
-    override func touchesBegan(touches: NSSet, withEvent event: UIEvent) {
+    
+    func toucheBegan(touches: NSSet){
+        println("began")
         let t = touches.anyObject() as UITouch
-        let point = t.locationInView(self.view)
-        
+        let point = t.locationInView(self.scrollView)
+
         //self.editingImage = nil
-        var _imageViewPointX = point.x - self.imageView.frame.origin.x
-        var _imageViewPointY = point.y - self.imageView.frame.origin.y
+        var _imageViewPointX = point.x - self.baseView.frame.origin.x
+        var _imageViewPointY = point.y - self.baseView.frame.origin.y
         
         //ボタンとの当り判定
         if(self.targetView.frame.origin.x + self.targetButton01.frame.origin.x <= _imageViewPointX
@@ -231,8 +251,9 @@ class ViewController: UIViewController,UIImagePickerControllerDelegate, UINaviga
         if(!self.isTargetButton01On && !self.isTargetButton02On && !self.isTargetButton03On && !self.isTargetButton04On){
             self.editingImage = nil
         }
-
+        
         //編集中画像の当たり判定
+        /*
         for var i = 0; i < self.setDecorations.count; i++ {            
             if(self.setDecorations[i].frame.origin.x <= _imageViewPointX
                 && _imageViewPointX <= self.setDecorations[i].frame.origin.x + self.setDecorations[i].frame.size.width 
@@ -242,8 +263,9 @@ class ViewController: UIViewController,UIImagePickerControllerDelegate, UINaviga
                 ){
                     self.editingImage = setDecorations[i]
             }
-        }
+        }*/
         for var i = 0; i < self.setPictures.count; i++ {
+            println(self.setPictures[i].frame)
             if(self.setPictures[i].frame.origin.x <= _imageViewPointX 
                 && _imageViewPointX <= self.setPictures[i].frame.origin.x + self.setPictures[i].frame.size.width 
                 && self.setPictures[i].frame.origin.y <= _imageViewPointY 
@@ -253,10 +275,10 @@ class ViewController: UIViewController,UIImagePickerControllerDelegate, UINaviga
                     self.editingImage = setPictures[i]
             }
         }
-
+        
         //ターゲッタを指定
         if(self.editingImage != nil){
-            self.imageView.bringSubviewToFront(self.targetView)
+            self.baseView.bringSubviewToFront(self.targetView)
             self.targetView?.hidden = false
             var _x  = self.editingImage?.frame.origin.x
             var _y  = self.editingImage?.frame.origin.y
@@ -271,26 +293,38 @@ class ViewController: UIViewController,UIImagePickerControllerDelegate, UINaviga
             self.setImageEditorUI()
             
             if(self.isTargetButton03On){
-                //self.imageView.bringSubviewToFront(self.editingImage!)
-                self.setPictureByFilteringRule()
+                self.baseView.bringSubviewToFront(self.editingImage!)
+                //self.setPictureByFilteringRule()
             }
             if(self.isTargetButton04On){
-                //self.imageView.sendSubviewToBack(self.editingImage!)
-                self.setPictureByFilteringRule()
+                self.baseView.sendSubviewToBack(self.editingImage!)
+                //self.setPictureByFilteringRule()
             }
+            
+            //編集中イメージがある場合はキャンバス自体のスクロールを停止
+            self.scrollView.scrollEnabled = false
             
         }else{
             self.targetView?.hidden = true
+            
+            //編集中イメージがない場合はキャンバス自体のスクロールを有効化
+            self.scrollView.scrollEnabled = true
         }
     }
     
     var _imagePoint : CGPoint = CGPointMake(0,0)
     var _tmpImagePoint : CGPoint = CGPointMake(0,0)
     var _rt : Int = 0
-    override func touchesMoved(touches: NSSet, withEvent event: UIEvent)  {
+    func touchMove(touches: NSSet){
+        println("xxxxxxxxxxxx")
+        
+        var _imagePoint : CGPoint = CGPointMake(0,0)
+        var _tmpImagePoint : CGPoint = CGPointMake(0,0)
+        var _rt : Int = 0
+    
         let t = touches.anyObject() as UITouch
-        let point = t.locationInView(self.view)
-        self._imagePoint = CGPointMake(point.x - self.imageView.frame.origin.x,point.y - self.imageView.frame.origin.y)
+        let point = t.locationInView(self.scrollView)
+        self._imagePoint = CGPointMake(point.x - self.baseView.frame.origin.x,point.y - self.baseView.frame.origin.y)
         
         //移動
         if(self.editingImage != nil){
@@ -308,16 +342,16 @@ class ViewController: UIViewController,UIImagePickerControllerDelegate, UINaviga
                 )
                 //戻す
                 self.editingImage!.transform = tmpTransform
-            
+                
                 //ターゲッタを指定
                 if(self.editingImage != nil){
-                    self.imageView.bringSubviewToFront(self.targetView)
+                    self.baseView.bringSubviewToFront(self.targetView)
                     self.targetView?.hidden = false
                     self.setImageEditorUI()
                 }else{
                     self.targetView?.hidden = true
                 }
-            //スケール&ロテート
+                //スケール&ロテート
             }else{
                 if(self.isTargetButton01On){
                     //アフィン変換されている場合は移動する前に一度初期化して、異動後に戻す必要がある
@@ -359,12 +393,12 @@ class ViewController: UIViewController,UIImagePickerControllerDelegate, UINaviga
                 
                 //上下ソート
                 if(self.isTargetButton03On){
-                    self.imageView.bringSubviewToFront(self.editingImage!)
+                    self.baseView.bringSubviewToFront(self.editingImage!)
                     println("33333333333")
                 }
                 
                 if(self.isTargetButton04On){
-                    self.imageView.sendSubviewToBack(self.editingImage!)
+                    self.baseView.sendSubviewToBack(self.editingImage!)
                     println("4444444444")
                 }                
             }
@@ -373,13 +407,15 @@ class ViewController: UIViewController,UIImagePickerControllerDelegate, UINaviga
         self.setImageEditorUI()
     }
     
-    override func touchesEnded(touches: NSSet, withEvent event: UIEvent) {
+    func touchEnd(touches: NSSet){
+        println("xxxxxxxxxxxx")
         self.isTargetButton01On = false
         self.isTargetButton02On = false
         self.isTargetButton03On = false
         self.isTargetButton04On = false
     }
-    
+
+
     func loadJSONFile(filterName:String) -> Array<Dictionary<String,String>>  {
         
         var filePath:String? = NSBundle.mainBundle().pathForResource(filterName,ofType:"json") as String?
@@ -465,7 +501,7 @@ class ViewController: UIViewController,UIImagePickerControllerDelegate, UINaviga
         var _background = self._posData[0]["background"]
         println(_title)
         self.titileLabel.text = _title
-        self.imageView.backgroundColor = UIColor(patternImage: UIImage(named:_background!)!)
+        self.baseView.backgroundColor = UIColor(patternImage: UIImage(named:_background!)!)
                 
         //配置された写真をリムーブ
         self.removeAllPicturesFromCanvas()
@@ -480,25 +516,25 @@ class ViewController: UIViewController,UIImagePickerControllerDelegate, UINaviga
     // MARK: - Canvasから写真を削除
 
     func removeAllPicturesFromCanvas(){
-        println("removeAll")
+        //println("removeAll")
         //配列からremoveする。
         for var i = 0; i < self.setPictures.count; i++ {
             self.setPictures[i].removeFromSuperview()
             //self.setPictures.removeAtIndex(i)
         }
-        
+        /*
         for var i = 0; i < self.setDecorations.count; i++ {
             self.setDecorations[i].removeFromSuperview()
             //self.setPictures.removeAtIndex(i)
-        }
-        
+        }*/
+        /*
         for var i = 0; i < self.setLabels.count; i++ {
-            self.setDecorations[i].removeFromSuperview()
+            //self.setDecorations[i].removeFromSuperview()
             //self.setPictures.removeAtIndex(i)
-        }
+        }*/
         self.setPictures = [] 
-        self.setDecorations = []
-        self.setLabels = []
+        //self.setDecorations = []
+        //self.setLabels = []
     }
     
     // MARK: - 既に配置されている写真に極力被らない座標を返す
@@ -528,6 +564,24 @@ class ViewController: UIViewController,UIImagePickerControllerDelegate, UINaviga
         return cgPoint
     }
     
+    // MARK: - ScrollViewの制御
+    
+    func viewForZoomingInScrollView(scrollView: UIScrollView!) -> UIView! {
+        return self.baseView
+    }
+    
+    func scrollViewDidEndZooming(scrollView: UIScrollView!, withView view: UIView!, atScale scale: CGFloat){
+        //println(scale)
+    }
+    
+    func scrollViewDidScroll(scrollView: UIScrollView!) {
+        //println(scrollView.contentOffset)
+    }
+    
+    func getScrollViewCenterPos() -> CGPoint {
+        return self.scrollView.contentOffset
+    }
+
 
     // MARK: - Canvasに写真を配置
     
@@ -612,7 +666,7 @@ class ViewController: UIViewController,UIImagePickerControllerDelegate, UINaviga
             //var _rot = CGFloat(arc4random_uniform(30))
             var _rad = CGFloat(CGFloat(_rotate) * CGFloat(M_PI / 180)) // 45°回転させたい場合
             _scaledView.transform = CGAffineTransformMakeRotation(_rad);
-            self.imageView.addSubview(_scaledView)
+            self.baseView.addSubview(_scaledView)
             self.setPictures.append(_scaledView)
 
             if(_data["deco1_image"] != ""){
@@ -654,8 +708,9 @@ class ViewController: UIViewController,UIImagePickerControllerDelegate, UINaviga
         )
         //_deco = _deco.getRandRotation()
         _deco = _deco.setRotation(Rotate)
-        self.imageView.addSubview(_deco)
-        self.setDecorations.append(_deco)
+        self.baseView.addSubview(_deco)
+        //self.setDecorations.append(_deco)
+        self.setPictures.append(_deco)
     }
     
 /*

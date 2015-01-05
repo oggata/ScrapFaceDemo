@@ -11,16 +11,18 @@ import UIKit
 
 class TouchScrollView: UIScrollView {
     
+    var rootView : ViewController!
+    
     override func touchesBegan(touches: NSSet, withEvent event: UIEvent) {
-        println("touchbegan")
+        self.rootView?.toucheBegan(touches)
     }
     
     override func touchesMoved(touches: NSSet, withEvent event: UIEvent) {
-        println("touchmoved")
+        self.rootView?.touchMove(touches)
     }
     
     override func touchesEnded(touches: NSSet, withEvent event: UIEvent) {
-        println("touchended")
+        self.rootView?.touchEnd(touches)
     }
 }
 

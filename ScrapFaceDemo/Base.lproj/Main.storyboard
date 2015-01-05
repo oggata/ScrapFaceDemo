@@ -16,12 +16,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="jBt-hO-bPo">
-                                <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
-                                <variation key="widthClass=compact" fixedFrame="YES">
-                                    <rect key="frame" x="0.0" y="65" width="400" height="535"/>
-                                </variation>
-                            </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Kbq-h8-jQe">
                                 <rect key="frame" x="-23" y="-15" width="46" height="30"/>
                                 <state key="normal" title="Photo">
@@ -55,35 +49,56 @@
                                     <rect key="frame" x="92" y="24" width="221" height="21"/>
                                 </variation>
                             </label>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hDr-1X-gDd" customClass="TouchScrollView" customModule="ScrapFaceDemo" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
+                                <variation key="widthClass=compact" fixedFrame="YES">
+                                    <rect key="frame" x="0.0" y="66" width="400" height="444"/>
+                                </variation>
+                                <connections>
+                                    <outlet property="delegate" destination="vXZ-lx-hvc" id="mDc-tG-pM7"/>
+                                </connections>
+                            </scrollView>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Dk3-XN-EUH">
+                                <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
+                                <variation key="widthClass=compact" fixedFrame="YES">
+                                    <rect key="frame" x="0.0" y="522" width="400" height="65"/>
+                                </variation>
+                                <connections>
+                                    <outlet property="delegate" destination="vXZ-lx-hvc" id="eEq-q3-w3x"/>
+                                </connections>
+                            </scrollView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <variation key="default">
                             <mask key="subviews">
-                                <exclude reference="jBt-hO-bPo"/>
                                 <exclude reference="Kbq-h8-jQe"/>
                                 <exclude reference="udG-HG-MEx"/>
                                 <exclude reference="oy5-P1-BV0"/>
+                                <exclude reference="hDr-1X-gDd"/>
+                                <exclude reference="Dk3-XN-EUH"/>
                             </mask>
                         </variation>
                         <variation key="widthClass=compact">
                             <mask key="subviews">
-                                <include reference="jBt-hO-bPo"/>
                                 <include reference="Kbq-h8-jQe"/>
                                 <include reference="udG-HG-MEx"/>
                                 <include reference="oy5-P1-BV0"/>
+                                <include reference="hDr-1X-gDd"/>
+                                <include reference="Dk3-XN-EUH"/>
                             </mask>
                         </variation>
                     </view>
                     <connections>
-                        <outlet property="imageView" destination="jBt-hO-bPo" id="2Cx-Xb-dkP"/>
+                        <outlet property="filterScrollView" destination="Dk3-XN-EUH" id="gWz-pU-Xub"/>
                         <outlet property="openAlbumButton" destination="Kbq-h8-jQe" id="YMX-g9-jjO"/>
                         <outlet property="openFilterButton" destination="udG-HG-MEx" id="ZUS-aC-tb0"/>
+                        <outlet property="scrollView" destination="hDr-1X-gDd" id="zLG-fp-D6h"/>
                         <outlet property="titileLabel" destination="oy5-P1-BV0" id="nds-8O-2uz"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="372" y="256"/>
+            <point key="canvasLocation" x="372" y="438"/>
         </scene>
     </scenes>
 </document>
