@@ -72,6 +72,7 @@
 		F3AD39231A426B6200F7BB89 /* back_003.png in Resources */ = {isa = PBXBuildFile; fileRef = F3AD39221A426B6200F7BB89 /* back_003.png */; };
 		F3AD39251A426C1000F7BB89 /* back_005.png in Resources */ = {isa = PBXBuildFile; fileRef = F3AD39241A426C1000F7BB89 /* back_005.png */; };
 		F3AD39271A426C1300F7BB89 /* back_004.png in Resources */ = {isa = PBXBuildFile; fileRef = F3AD39261A426C1300F7BB89 /* back_004.png */; };
+		F3D20D641A5A3D210077E159 /* TouchScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3D20D631A5A3D210077E159 /* TouchScrollView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -154,6 +155,7 @@
 		F3AD39221A426B6200F7BB89 /* back_003.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = back_003.png; sourceTree = "<group>"; };
 		F3AD39241A426C1000F7BB89 /* back_005.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = back_005.png; sourceTree = "<group>"; };
 		F3AD39261A426C1300F7BB89 /* back_004.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = back_004.png; sourceTree = "<group>"; };
+		F3D20D631A5A3D210077E159 /* TouchScrollView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TouchScrollView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -310,6 +312,7 @@
 				F3835A941A429C7A000456A0 /* filter_003.json */,
 				F3835A961A429C85000456A0 /* filter_004.json */,
 				F3835A981A429C95000456A0 /* filter_005.json */,
+				F3D20D631A5A3D210077E159 /* TouchScrollView.swift */,
 			);
 			path = ScrapFaceDemo;
 			sourceTree = "<group>";
@@ -497,6 +500,7 @@
 			files = (
 				F3AD39111A416A7F00F7BB89 /* Extension.swift in Sources */,
 				F3AD38F01A41502F00F7BB89 /* ViewController.swift in Sources */,
+				F3D20D641A5A3D210077E159 /* TouchScrollView.swift in Sources */,
 				F3AD38EE1A41502F00F7BB89 /* AppDelegate.swift in Sources */,
 				F3835A8F1A429B79000456A0 /* json.swift in Sources */,
 			);

@@ -466,6 +466,31 @@ extension UIImage {
         return clippedImage!    
     }
     
+    func getClippedImage2() -> UIImage {
+        var _x : CGFloat = 0
+        var _y : CGFloat = 0
+        var _w  = self.size.width
+        var _h = self.size.height
+        var _minSize : CGFloat = 0
+        if(_w > _h){
+            _x =  CGFloat(_w/2-_h/2)
+            _y =  CGFloat(0)
+            _minSize = _h
+        }else{
+            _x =  CGFloat(0)
+            _y =  CGFloat(_h/2 - _w/2)
+            _minSize = _w
+        }
+        UIGraphicsBeginImageContextWithOptions(CGSizeMake(_minSize,_minSize),false,0.0)
+        let context = UIGraphicsGetCurrentContext()
+        var clipRect = CGRectMake(0,0,_minSize,_minSize)
+        var subImage = CGImageCreateWithImageInRect(self.CGImage!,clipRect)
+        CGContextDrawImage(context, CGRectMake(0,0,_minSize,_minSize), subImage)
+        let resizedImage = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        return resizedImage
+    }
+    
     func getPhoto2() -> UIImage{        
         var toSize = CGSizeMake(self.size.width,self.size.height)
         UIGraphicsBeginImageContextWithOptions(toSize,false, 0.0)

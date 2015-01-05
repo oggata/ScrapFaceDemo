@@ -48,6 +48,8 @@ class ViewController: UIViewController,UIImagePickerControllerDelegate, UINaviga
         println("yy")
         self.changeFilter()
     }
+    
+    let uiButton: UIButton = UIButton()
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
@@ -89,13 +91,52 @@ class ViewController: UIViewController,UIImagePickerControllerDelegate, UINaviga
         self.targetButton04.image = UIImage(named:"down_button.png")
         self.targetView?.addSubview(self.targetButton04)
         
-        self.moveTargetUI()
+        
+        //ボタン2
+/*
+        var button = UIButton()
+        button.setTitle("Tap Me!", forState: .Normal)
+        button.setTitleColor(UIColor.blueColor(), forState: .Normal)
+        button.setTitle("Tapped!", forState: .Highlighted)
+        button.setTitleColor(UIColor.redColor(), forState: .Highlighted)
+        button.frame = CGRectMake(0, 0, 300, 50)        
+        button.layer.position = CGPoint(x: self.view.frame.width/2, y:100)
+        button.backgroundColor = UIColor(red: 0.7, green: 0.2, blue: 0.2, alpha: 0.2)
+        button.layer.cornerRadius = 10
+        button.layer.borderWidth = 1
+        button.addTarget(self, action: Selector("onClickButton:"), forControlEvents: .TouchDown)
+        //button.addTarget(self, action: "animateButtonDown", forControlEvents:.TouchUpInside)
+        self.targetView?.addSubview(button)
+*/       
+        /*
+        let t = UITapGestureRecognizer(target: self, action: "tap:")
+        self.imageView.addGestureRecognizer(t)
+        t.cancelsTouchesInView = false
+        */
+        
+        // 设置 View 的背景色为 clear.
+        //self.view.backgroundColor = UIColor.clearColor()
+        
+        self.setImageEditorUI()
         
         self.changeFilter()
     }
 
-    func moveTargetUI(){
+    func tap(g:UIGestureRecognizer!) {
+        println("tap! (gesture recognizer)")
+    }
     
+    func onClickButton(sender: UIButton){
+        println("onClickButton:")
+        println("sender.currentTitile: \(sender.currentTitle)")
+        println("sender.tag:\(sender.tag)")
+        
+    }
+
+    // MARK: - 画像編集用のUIをセットする
+    
+    func setImageEditorUI(){
+
         if(self.editingImage != nil){
             var _x  = self.editingImage?.frame.origin.x
             var _y  = self.editingImage?.frame.origin.y
@@ -227,13 +268,15 @@ class ViewController: UIViewController,UIImagePickerControllerDelegate, UINaviga
                 _width!,
                 _height!
             )
-            self.moveTargetUI()
+            self.setImageEditorUI()
             
             if(self.isTargetButton03On){
-                self.imageView.bringSubviewToFront(self.editingImage!)
+                //self.imageView.bringSubviewToFront(self.editingImage!)
+                self.setPictureByFilteringRule()
             }
             if(self.isTargetButton04On){
-                self.imageView.sendSubviewToBack(self.editingImage!)
+                //self.imageView.sendSubviewToBack(self.editingImage!)
+                self.setPictureByFilteringRule()
             }
             
         }else{
@@ -270,7 +313,7 @@ class ViewController: UIViewController,UIImagePickerControllerDelegate, UINaviga
                 if(self.editingImage != nil){
                     self.imageView.bringSubviewToFront(self.targetView)
                     self.targetView?.hidden = false
-                    self.moveTargetUI()
+                    self.setImageEditorUI()
                 }else{
                     self.targetView?.hidden = true
                 }
@@ -327,15 +370,10 @@ class ViewController: UIViewController,UIImagePickerControllerDelegate, UINaviga
             }
         }        
         self._tmpImagePoint = self._imagePoint
-        self.moveTargetUI()
+        self.setImageEditorUI()
     }
     
     override func touchesEnded(touches: NSSet, withEvent event: UIEvent) {
-        //self.editingImage = nil
-        //println("touchEnd")
-        //if(self.editingUIImageView != nil){
-            
-        //}
         self.isTargetButton01On = false
         self.isTargetButton02On = false
         self.isTargetButton03On = false
@@ -500,7 +538,17 @@ class ViewController: UIViewController,UIImagePickerControllerDelegate, UINaviga
         }
     }
     
-    // MARK: - 写真1枚の配置に対してフィルタルールを適用する
+    
+    func setPictureByFilteringRule(){
+        //var _image = UIImageView(image:_picture)
+        if(self.editingImage != nil){
+            var _edit = self.editingImage?.image
+            self.editingImage?.image = _edit?.getKirinuki()
+        }
+    }
+    
+    
+    // MARK: - 写真1枚の配置に対してフィルタを適用
     
     func setPictureByFilteringRule2(_picture:UIImage,_filterName : String){
         var _image = UIImageView(image:_picture)
@@ -534,7 +582,8 @@ class ViewController: UIViewController,UIImagePickerControllerDelegate, UINaviga
             var _picture = _picture
                 
             if(_data["square"] == "true"){
-                _picture = _picture.getClippedImage(CGRectMake(0,0,500,500))
+                //_picture = _picture.getClippedImage(CGRectMake(0,0,500,500))
+                _picture = _picture.getClippedImage2()
             }
             if(_data["filter"] != "none"){
                 _picture = _picture.getFilteredImage(_data["filter"]!)!
@@ -584,6 +633,7 @@ class ViewController: UIViewController,UIImagePickerControllerDelegate, UINaviga
         }
     }
     
+    // MARK: - デコレーションを貼る
     
     func pasteDecoration(targetPhoto:UIImageView,image:String,posX:Float,posY:Float,Scale:Int,Rotate:Int){
         var _decoImage = UIImage(named:image)
@@ -622,7 +672,7 @@ class ViewController: UIViewController,UIImagePickerControllerDelegate, UINaviga
 */
 
     
-    // MARK: - 写真の制御
+    // MARK: - アルバムの制御
     
     private func openAlbum() {
         let imagePicker = UIImagePickerController()
