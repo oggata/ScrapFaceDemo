@@ -29,18 +29,11 @@ class TouchScrollView: UIScrollView {
 
 class PhotoUIImageView: UIImageView {
     
-    //var rootView : ViewController!
-    /*
-    override func touchesBegan(touches: NSSet, withEvent event: UIEvent) {
-        self.rootView?.toucheBegan(touches)
-    }
+    var originalImage : UIImage!
+    var type : Int! // 1:photo 2:decoration
     
-    override func touchesMoved(touches: NSSet, withEvent event: UIEvent) {
-        self.rootView?.touchMove(touches)
+    func setOriginalImage(image:UIImage){
+        self.originalImage = image
     }
-    
-    override func touchesEnded(touches: NSSet, withEvent event: UIEvent) {
-        self.rootView?.touchEnd(touches)
-    }*/
 }
 
