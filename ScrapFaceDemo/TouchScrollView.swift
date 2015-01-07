@@ -26,3 +26,21 @@ class TouchScrollView: UIScrollView {
     }
 }
 
+
+class PhotoUIImageView: UIImageView {
+    
+    //var rootView : ViewController!
+    /*
+    override func touchesBegan(touches: NSSet, withEvent event: UIEvent) {
+        self.rootView?.toucheBegan(touches)
+    }
+    
+    override func touchesMoved(touches: NSSet, withEvent event: UIEvent) {
+        self.rootView?.touchMove(touches)
+    }
+    
+    override func touchesEnded(touches: NSSet, withEvent event: UIEvent) {
+        self.rootView?.touchEnd(touches)
+    }*/
+}
+

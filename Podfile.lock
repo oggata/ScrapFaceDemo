@@ -1,0 +1,10 @@
+PODS:
+  - ELCImagePickerController (0.2.0)
+
+DEPENDENCIES:
+  - ELCImagePickerController
+
+SPEC CHECKSUMS:
+  ELCImagePickerController: 4dc83bb6ce995f4964b0080d77ad5a01141e6db2
+
+COCOAPODS: 0.34.4

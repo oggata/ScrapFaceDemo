@@ -10,7 +10,7 @@ import UIKit
 import Photos
 import CoreImage
 
-class ViewController: UIViewController,UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+class ViewController: UIViewController,UIImagePickerControllerDelegate, UINavigationControllerDelegate,ELCImagePickerControllerDelegate {
 
     var filterNum = 0
     var filterName = "filter_001"
@@ -41,15 +41,13 @@ class ViewController: UIViewController,UIImagePickerControllerDelegate, UINaviga
     @IBOutlet var scrollView: TouchScrollView!
     var baseView : UIImageView!
     
-    //@IBOutlet var filterScrollView: UIScrollView!
     @IBOutlet var openAlbumButton: UIButton!
     @IBAction func openAlbumButtonDidTouch(sender: AnyObject) {
-        //println("xx")
-        self.openAlbum()
+        //self.openAlbum()
+        self.pickImages()
     }
     @IBOutlet var openFilterButton: UIButton!
     @IBAction func openFilterButtonDidTouch(sender: AnyObject) {
-        //println("yy")
         self.changeFilter()
     }
     
@@ -91,33 +89,23 @@ class ViewController: UIViewController,UIImagePickerControllerDelegate, UINaviga
         self.baseView.addSubview(self.targetView)
         self.targetView?.hidden = true
         
+        //フィルター用のスクロールビュー
         filterScrollView.frame  = CGRectMake(0,0,2000,2000)
         filterScrollView.contentSize = CGSizeMake(2000,80)
         filterScrollView.userInteractionEnabled = true;
         filterScrollView.scrollEnabled = true
         filterScrollView.delaysContentTouches = true
 
-        var _filterButton001 = UIButton()
-        _filterButton001.frame = CGRectMake(0,0,80,80)
-        _filterButton001.setImage(UIImage(named:"filter_001.png"), forState: .Normal)
-        self.filterScrollView.addSubview(_filterButton001)
-
-        var _filterButton002 = UIButton()
-        _filterButton002.frame = CGRectMake(100,0,80,80)
-        _filterButton002.setImage(UIImage(named:"filter_002.png"), forState: .Normal)
-        self.filterScrollView.addSubview(_filterButton002)
-        
-        var _filterButton003 = UIButton()
-        _filterButton003.frame = CGRectMake(200,0,80,80)
-        _filterButton003.setImage(UIImage(named:"filter_003.png"), forState: .Normal)
-        self.filterScrollView.addSubview(_filterButton003)
-        
-        var _filterButton004 = UIButton()
-        _filterButton004.frame = CGRectMake(300,0,80,80)
-        _filterButton004.setImage(UIImage(named:"filter_004.png"), forState: .Normal)
-        self.filterScrollView.addSubview(_filterButton004)
-
-        
+        //filter button
+        for i in 1...10 {
+            var _filterButton = UIButton()
+            _filterButton.frame = CGRectMake(CGFloat(i*100),0,80,80)
+            _filterButton.setImage(UIImage(named:"filter_001.png"), forState: .Normal)
+            _filterButton.tag = i
+            _filterButton.addTarget(self, action: "onClickButton:", forControlEvents:.TouchUpInside)
+            self.filterScrollView.addSubview(_filterButton)
+        }
+ 
         //ボタン1
         self.targetButton01 = UIImageView(frame:CGRectMake(0,0,26,26))
         self.targetButton01.image = UIImage(named:"scale_button.png")
@@ -137,7 +125,7 @@ class ViewController: UIViewController,UIImagePickerControllerDelegate, UINaviga
 
         self.setImageEditorUI()
         
-        self.changeFilter()
+        //self.changeFilter()
     }
 
     func tap(g:UIGestureRecognizer!) {
@@ -472,7 +460,6 @@ class ViewController: UIViewController,UIImagePickerControllerDelegate, UINaviga
     }
     
     func changeFilter(){
-        
         //フィルター番号をインクリメント
         self.filterNum++
         if(self.filterNum>5){
@@ -608,12 +595,12 @@ class ViewController: UIViewController,UIImagePickerControllerDelegate, UINaviga
         var _image = UIImageView(image:_picture)
 
         var _i = self.setPictures.count
-        if(_i>=9){
+        //if(_i>=9){
             var loginAlert:UIAlertController = UIAlertController(title: "写真は9枚迄です.", 
                 message: "-製品版はもっと追加できますよ、乞うご期待!!-.", preferredStyle: UIAlertControllerStyle.Alert)
             loginAlert.addAction(UIAlertAction(title: "ok", style: .Default, handler: nil))
             self.presentViewController(loginAlert, animated: true, completion: nil)               
-        }else{
+        //}else{
 
             //rand
             //var _i = arc4random_uniform(9)
@@ -684,7 +671,7 @@ class ViewController: UIViewController,UIImagePickerControllerDelegate, UINaviga
                     Rotate : _decoRotate
                 )
             }
-        }
+        //}
     }
     
     // MARK: - デコレーションを貼る
@@ -778,6 +765,8 @@ class ViewController: UIViewController,UIImagePickerControllerDelegate, UINaviga
         })
     }
     
+    // MARK: - 1枚の写真を読み込む
+    
     var asset: PHAsset?
     
     private func loadAsset(asset: PHAsset?, completion: ((hoge:UIImage) -> Void)?) {
@@ -812,5 +801,38 @@ class ViewController: UIViewController,UIImagePickerControllerDelegate, UINaviga
         })
     }
 
+    // MARK: - 複数毎の写真を読み込む
+    
+    // 写真を選択する
+    func pickImages() {
+        let picker = ELCImagePickerController()
+        picker.maximumImagesCount = 5  // 選択する最大枚数
+        picker.imagePickerDelegate = self
+        self.presentViewController(picker, animated: true, completion: nil)
+    }
+    
+    //  写真選択時に呼び出される
+    func elcImagePickerController(picker: ELCImagePickerController!, didFinishPickingMediaWithInfo info: [AnyObject]!) {
+        self.dismissViewControllerAnimated(true, completion: nil)
+        if (info.count == 0) {
+            return
+        }
+        var pickedImages = NSMutableArray()
+        for any in info {
+            let dict = any as NSMutableDictionary
+            let image = dict.objectForKey(UIImagePickerControllerOriginalImage) as UIImage
+            pickedImages.addObject(image)
+            
+            //1枚ずつ保存する
+            self.pictures.append(image)
+            self.setPictureByFilteringRule2(image,_filterName : "hoge")
+        }
+        //println(pickedImages)
+    }
+    
+    // 写真未選択時に呼び出される
+    func elcImagePickerControllerDidCancel(picker: ELCImagePickerController!) {
+        self.dismissViewControllerAnimated(true, completion: nil)
+    }
 }
 
