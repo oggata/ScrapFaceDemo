@@ -79,6 +79,7 @@
 		F3D702961A5A95D5003D0C4F /* filter_002.png in Resources */ = {isa = PBXBuildFile; fileRef = F3D702941A5A95D5003D0C4F /* filter_002.png */; };
 		F3D702971A5A95D5003D0C4F /* filter_003.png in Resources */ = {isa = PBXBuildFile; fileRef = F3D702951A5A95D5003D0C4F /* filter_003.png */; };
 		F3D7029A1A5A9B2F003D0C4F /* Bridge.m in Sources */ = {isa = PBXBuildFile; fileRef = F3D702991A5A9B2F003D0C4F /* Bridge.m */; };
+		F3D702D01A5D20D7003D0C4F /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3D702CF1A5D20D7003D0C4F /* DetailViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -171,6 +172,7 @@
 		F3D702951A5A95D5003D0C4F /* filter_003.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = filter_003.png; sourceTree = "<group>"; };
 		F3D702981A5A9B2F003D0C4F /* ScrapFaceDemo-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ScrapFaceDemo-Bridging-Header.h"; sourceTree = "<group>"; };
 		F3D702991A5A9B2F003D0C4F /* Bridge.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Bridge.m; sourceTree = "<group>"; };
+		F3D702CF1A5D20D7003D0C4F /* DetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -340,6 +342,7 @@
 				F3835A8D1A42869B000456A0 /* images */,
 				F3AD38ED1A41502F00F7BB89 /* AppDelegate.swift */,
 				F3AD38EF1A41502F00F7BB89 /* ViewController.swift */,
+				F3D702CF1A5D20D7003D0C4F /* DetailViewController.swift */,
 				F3AD38F11A41502F00F7BB89 /* Main.storyboard */,
 				F3AD38F41A41502F00F7BB89 /* Images.xcassets */,
 				F3AD38F61A41502F00F7BB89 /* LaunchScreen.xib */,
@@ -584,6 +587,7 @@
 				F3AD38EE1A41502F00F7BB89 /* AppDelegate.swift in Sources */,
 				F3D7029A1A5A9B2F003D0C4F /* Bridge.m in Sources */,
 				F3835A8F1A429B79000456A0 /* json.swift in Sources */,
+				F3D702D01A5D20D7003D0C4F /* DetailViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -510,6 +510,27 @@ extension UIImage {
         return drawedImage
     }
     
+    func setBehindImage(frameImage : UIImage!) -> UIImage{
+        var toSize = CGSizeMake(self.size.width,self.size.height)
+        UIGraphicsBeginImageContextWithOptions(toSize,false, 0.0)
+        
+        let context = UIGraphicsGetCurrentContext()
+        //var frameImage = UIImage(named:"frame_002.png")
+        //指定されたサイズに目一杯に広げる
+        var clipRect = CGRectMake(0,0,self.size.width,self.size.height)
+        var drawCtxt = UIGraphicsGetCurrentContext()
+        CGContextDrawImage(drawCtxt,clipRect,frameImage?.CGImage)
+        
+        //写真を配置する<サイズの1/10>
+        var _posX = self.size.width/10
+        var _posY = self.size.height/10
+        drawInRect(CGRectMake(_posX, _posY, self.size.width - _posX*2, self.size.height - _posY*2))
+
+        var drawedImage = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        return drawedImage
+    }
+    
     func getPostageStamp() -> UIImage{
         var toSize = CGSizeMake(self.size.width,self.size.height)
         UIGraphicsBeginImageContextWithOptions(toSize,false, 0.0)
@@ -536,6 +557,30 @@ extension UIImage {
         
         let context = UIGraphicsGetCurrentContext()
         var frameImage = UIImage(named:"frame_002.png")
+        //指定されたサイズに目一杯に広げる
+        var clipRect = CGRectMake(0,0,self.size.width,self.size.height)
+        var drawCtxt = UIGraphicsGetCurrentContext()
+        CGContextDrawImage(drawCtxt,clipRect,frameImage?.CGImage)
+        
+        //写真を配置する
+        //サイズの1/10
+        var _posX = self.size.width/10
+        var _posY = self.size.height/10
+        
+        drawInRect(CGRectMake(_posX, _posY, self.size.width - _posX*2, self.size.height - _posY*2))
+        
+        var drawedImage = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        return drawedImage
+    }
+    
+    func getPolaroidPhoto2() -> UIImage{
+        
+        var toSize = CGSizeMake(self.size.width,self.size.height)
+        UIGraphicsBeginImageContextWithOptions(toSize,false, 0.0)
+        
+        let context = UIGraphicsGetCurrentContext()
+        var frameImage = UIImage(named:"frame_001.png")
         //指定されたサイズに目一杯に広げる
         var clipRect = CGRectMake(0,0,self.size.width,self.size.height)
         var drawCtxt = UIGraphicsGetCurrentContext()

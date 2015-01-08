@@ -11,20 +11,15 @@ import Photos
 import CoreImage
 
 class ViewController: UIViewController,UIImagePickerControllerDelegate, UINavigationControllerDelegate,ELCImagePickerControllerDelegate {
-
+    
     var filterNum = 0
     var filterName = "filter_001"
     var pictures:[UIImage] = []
     var setPictures:[PhotoUIImageView] = []
     var setLabels:[UILabel]=[]
-    
-    var editingImage : PhotoUIImageView? = nil
-    
+    var editingImage : PhotoUIImageView? = nil    
     var canvasImageView : UIImageView!
-    
-    @IBOutlet var filterScrollView: UIScrollView!
-    var filterUIView : UIImageView!
-    
+    var filterUIView : UIImageView!    
     var targetView : UIImageView!
     var targetButton01 : UIImageView!
     var isTargetButton01On : Bool = false
@@ -40,6 +35,15 @@ class ViewController: UIViewController,UIImagePickerControllerDelegate, UINaviga
     @IBOutlet var scrollView: TouchScrollView!
     var baseView : UIImageView!
     
+    @IBOutlet var editButton: UIButton!
+    @IBAction func editButtonDidTouch(sender: AnyObject) {
+        //self.openAlbum()
+        //self.pickImages()
+        if(self.editingImage != nil){
+            performSegueWithIdentifier("DetailSegue",sender: nil)
+        }
+    }
+        
     @IBOutlet var openAlbumButton: UIButton!
     @IBAction func openAlbumButtonDidTouch(sender: AnyObject) {
         //self.openAlbum()
@@ -68,6 +72,44 @@ class ViewController: UIViewController,UIImagePickerControllerDelegate, UINaviga
         return _targetImage
     }
     
+    func touchDetailView(sender: UIButton){
+        //println("onClickButton:")
+        //println("sender.currentTitile: \(sender.currentTitle)")
+        //println("sender.tag:\(sender.tag)")
+        performSegueWithIdentifier("DetailSegue",sender: nil)
+    }
+    
+    @IBAction func unwindToTop(segue: UIStoryboardSegue) {
+        println("--------------------")
+    }    
+    
+    @IBAction func unwindByEditing(segue: UIStoryboardSegue) {
+        println("--------------------")
+    }  
+
+    @IBAction func unwindByCanel(segue: UIStoryboardSegue) {
+        println("--------------------")
+    } 
+    
+    // MARK: - 詳細ページセグエにイメージを渡す
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        super.prepareForSegue(segue, sender: sender)
+        if segue.identifier == "DetailSegue" {
+            let dest : DetailViewController = segue.destinationViewController as DetailViewController
+            if(self.editingImage != nil){
+                dest.editingImage = self.editingImage
+            }
+        }
+    }
+    
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        //showIntroModal()
+        //editingImage
+        //println(self.editingImage)
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -88,24 +130,6 @@ class ViewController: UIViewController,UIImagePickerControllerDelegate, UINaviga
         self.baseView.addSubview(self.targetView)
         self.targetView?.hidden = true
         
-        //フィルター用のスクロールビュー
-        filterScrollView.frame  = CGRectMake(0,0,2000,2000)
-        filterScrollView.contentSize = CGSizeMake(2000,80)
-        filterScrollView.userInteractionEnabled = true;
-        filterScrollView.scrollEnabled = true
-        filterScrollView.delaysContentTouches = true
-        filterScrollView.hidden = false
-
-        //filter button
-        for i in 1...10 {
-            var _filterButton = UIButton()
-            _filterButton.frame = CGRectMake(CGFloat(i*100),0,80,80)
-            _filterButton.setImage(UIImage(named:"filter_001.png"), forState: .Normal)
-            _filterButton.tag = i
-            _filterButton.addTarget(self, action: "touchFilterButton:", forControlEvents:.TouchUpInside)
-            self.filterScrollView.addSubview(_filterButton)
-        }
- 
         //ボタン1
         self.targetButton01 = UIImageView(frame:CGRectMake(0,0,26,26))
         self.targetButton01.image = UIImage(named:"scale_button.png")
@@ -126,35 +150,6 @@ class ViewController: UIViewController,UIImagePickerControllerDelegate, UINaviga
         self.setImageEditorUI()
         
         self.changeFilter()
-    }
-
-    /*
-    func tap(g:UIGestureRecognizer!) {
-        println("tap! (gesture recognizer)")
-    }*/
-    
-    func touchFilterButton(sender: UIButton){
-        println("onClickButton:")
-        println("sender.currentTitile: \(sender.currentTitle)")
-        println("sender.tag:\(sender.tag)")
-        //編集中イメージがある場合は、変種中イメージのoriginalImageにフィルターをかける<フィルター>
-        if(self.editingImage != nil){
-            self.editingImage?.image = self.editingImage?.image?.getFilteredImage("CIPhotoEffectTonal")!
-        }
-    }
-    
-    func touchSizeButton(sender: UIButton){
-        //編集中イメージがある場合は、変種中イメージのoriginalImageにフィルターをかける<フィルター>
-        if(self.editingImage != nil){
-            self.editingImage?.image = self.editingImage?.image?.getFilteredImage("CIPhotoEffectTonal")!
-        }
-    }
-    
-    func touchDecorationButton(sender: UIButton){
-        //編集中イメージがある場合は、変種中イメージのoriginalImageにフィルターをかける<フィルター>
-        if(self.editingImage != nil){
-            self.editingImage?.image = self.editingImage?.image?.getFilteredImage("CIPhotoEffectTonal")!
-        }
     }
     
     // MARK: - 画像編集用のUIをセットする
@@ -382,10 +377,13 @@ class ViewController: UIViewController,UIImagePickerControllerDelegate, UINaviga
                 //上下ソート
                 if(self.isTargetButton03On){
                     self.baseView.bringSubviewToFront(self.editingImage!)
+                    
+                    //self.touchDetailView()
                 }
                 
                 if(self.isTargetButton04On){
                     self.baseView.sendSubviewToBack(self.editingImage!)
+                    //self.performSegueWithIdentifier("DetailSegue",sender: nil)
                 }                
             }
         }        
@@ -561,7 +559,6 @@ class ViewController: UIViewController,UIImagePickerControllerDelegate, UINaviga
         }
     }
     
-    
     func setPictureByFilteringRule(){
         //var _image = UIImageView(image:_picture)
         if(self.editingImage != nil){
@@ -610,7 +607,7 @@ class ViewController: UIViewController,UIImagePickerControllerDelegate, UINaviga
                 _filteredImage = _filteredImage.getMaskedImage(_image!)
             }
             if(_data["frame"] == "INSTANT"){
-                _filteredImage = _filteredImage.getPolaroidPhoto()
+                _filteredImage = _filteredImage.getPolaroidPhoto2()
             }
             if(_data["frame"] == "LUXURY"){
                 _filteredImage = _filteredImage.getPhoto2()

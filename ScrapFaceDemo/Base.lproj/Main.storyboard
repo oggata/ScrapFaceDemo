@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="13F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="vXZ-lx-hvc">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="13F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="4CE-Xh-HLK">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
     </dependencies>
@@ -22,7 +22,7 @@
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <variation key="widthClass=compact" fixedFrame="YES">
-                                    <rect key="frame" x="16" y="20" width="46" height="30"/>
+                                    <rect key="frame" x="16" y="72" width="46" height="33"/>
                                 </variation>
                                 <connections>
                                     <action selector="openAlbumButtonDidTouch:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="pMQ-od-9kJ"/>
@@ -34,7 +34,7 @@
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <variation key="widthClass=compact" fixedFrame="YES">
-                                    <rect key="frame" x="326" y="20" width="46" height="30"/>
+                                    <rect key="frame" x="341" y="71" width="46" height="37"/>
                                 </variation>
                                 <connections>
                                     <action selector="openFilterButtonDidTouch:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="Abi-7t-B9y"/>
@@ -52,21 +52,24 @@
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hDr-1X-gDd" customClass="TouchScrollView" customModule="ScrapFaceDemo" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
                                 <variation key="widthClass=compact" fixedFrame="YES">
-                                    <rect key="frame" x="0.0" y="66" width="400" height="444"/>
+                                    <rect key="frame" x="3" y="113" width="400" height="479"/>
                                 </variation>
                                 <connections>
                                     <outlet property="delegate" destination="vXZ-lx-hvc" id="mDc-tG-pM7"/>
                                 </connections>
                             </scrollView>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Dk3-XN-EUH">
-                                <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eQu-7f-eYg">
+                                <rect key="frame" x="-23" y="-15" width="46" height="30"/>
+                                <state key="normal" title="Edit">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
                                 <variation key="widthClass=compact" fixedFrame="YES">
-                                    <rect key="frame" x="0.0" y="522" width="400" height="65"/>
+                                    <rect key="frame" x="185" y="72" width="30" height="30"/>
                                 </variation>
                                 <connections>
-                                    <outlet property="delegate" destination="vXZ-lx-hvc" id="eEq-q3-w3x"/>
+                                    <action selector="editButtonDidTouch:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="FIf-Qb-yFQ"/>
                                 </connections>
-                            </scrollView>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <variation key="default">
@@ -75,7 +78,7 @@
                                 <exclude reference="udG-HG-MEx"/>
                                 <exclude reference="oy5-P1-BV0"/>
                                 <exclude reference="hDr-1X-gDd"/>
-                                <exclude reference="Dk3-XN-EUH"/>
+                                <exclude reference="eQu-7f-eYg"/>
                             </mask>
                         </variation>
                         <variation key="widthClass=compact">
@@ -84,19 +87,110 @@
                                 <include reference="udG-HG-MEx"/>
                                 <include reference="oy5-P1-BV0"/>
                                 <include reference="hDr-1X-gDd"/>
-                                <include reference="Dk3-XN-EUH"/>
+                                <include reference="eQu-7f-eYg"/>
                             </mask>
                         </variation>
                     </view>
+                    <navigationItem key="navigationItem" id="rwe-lZ-nx5"/>
                     <connections>
-                        <outlet property="filterScrollView" destination="Dk3-XN-EUH" id="gWz-pU-Xub"/>
+                        <outlet property="editButton" destination="eQu-7f-eYg" id="Uoq-wh-j9u"/>
                         <outlet property="openAlbumButton" destination="Kbq-h8-jQe" id="YMX-g9-jjO"/>
                         <outlet property="openFilterButton" destination="udG-HG-MEx" id="ZUS-aC-tb0"/>
                         <outlet property="scrollView" destination="hDr-1X-gDd" id="zLG-fp-D6h"/>
                         <outlet property="titileLabel" destination="oy5-P1-BV0" id="nds-8O-2uz"/>
+                        <segue destination="rzq-sZ-YeZ" kind="modal" identifier="DetailSegue" id="oca-3W-cdu"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1254" y="445"/>
+        </scene>
+        <!--Detail View Controller-->
+        <scene sceneID="BQM-Iz-RVf">
+            <objects>
+                <viewController id="rzq-sZ-YeZ" customClass="DetailViewController" customModule="ScrapFaceDemo" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="RH6-w3-oPT"/>
+                        <viewControllerLayoutGuide type="bottom" id="Kog-a0-fTC"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="kF1-t4-IMp">
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4Wu-j7-Qnk">
+                                <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
+                                <variation key="widthClass=compact" fixedFrame="YES">
+                                    <rect key="frame" x="0.0" y="495" width="400" height="75"/>
+                                </variation>
+                            </scrollView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xD3-Ha-AWh">
+                                <rect key="frame" x="-23" y="-15" width="46" height="30"/>
+                                <state key="normal" title="Cancel">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <variation key="widthClass=compact" fixedFrame="YES">
+                                    <rect key="frame" x="24" y="28" width="65" height="30"/>
+                                </variation>
+                                <connections>
+                                    <action selector="cancelButtonDidTouch:" destination="rzq-sZ-YeZ" eventType="touchUpInside" id="xph-jn-pVH"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wZJ-ln-CPg">
+                                <rect key="frame" x="-23" y="-15" width="46" height="30"/>
+                                <state key="normal" title="OK">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <variation key="widthClass=compact" fixedFrame="YES">
+                                    <rect key="frame" x="320" y="28" width="46" height="30"/>
+                                </variation>
+                                <connections>
+                                    <action selector="retouchButtonDidTouch:" destination="rzq-sZ-YeZ" eventType="touchUpInside" id="6ZV-yU-WBF"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <variation key="default">
+                            <mask key="subviews">
+                                <exclude reference="4Wu-j7-Qnk"/>
+                                <exclude reference="xD3-Ha-AWh"/>
+                                <exclude reference="wZJ-ln-CPg"/>
+                            </mask>
+                        </variation>
+                        <variation key="widthClass=compact">
+                            <mask key="subviews">
+                                <include reference="4Wu-j7-Qnk"/>
+                                <include reference="xD3-Ha-AWh"/>
+                                <include reference="wZJ-ln-CPg"/>
+                            </mask>
+                        </variation>
+                    </view>
+                    <connections>
+                        <outlet property="cancelButton" destination="xD3-Ha-AWh" id="Lt3-sd-kEf"/>
+                        <outlet property="scrollView" destination="4Wu-j7-Qnk" id="ra6-LV-fNy"/>
+                        <segue destination="8b5-Sc-DFu" kind="unwind" identifier="UnwindSegue" unwindAction="unwindToTop:" id="7bC-q2-2yh"/>
+                        <segue destination="8b5-Sc-DFu" kind="unwind" identifier="UnwindCancelSegue" unwindAction="unwindByCanel:" id="8BZ-r1-exb"/>
+                        <segue destination="8b5-Sc-DFu" kind="unwind" identifier="UnwindEditingSegue" unwindAction="unwindByEditing:" id="b6T-t7-hBb"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="e3O-7G-f5V" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="8b5-Sc-DFu" userLabel="Exit" sceneMemberID="exit"/>
+            </objects>
+            <point key="canvasLocation" x="1986" y="445"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="2g9-bE-c7O">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="4CE-Xh-HLK" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="lGt-2i-5Sg">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="vXZ-lx-hvc" kind="relationship" relationship="rootViewController" id="gzt-IS-Wi4"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="KyV-Q2-1QM" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="372" y="438"/>
         </scene>
